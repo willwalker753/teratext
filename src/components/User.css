@@ -1,0 +1,42 @@
+.contactMessageLink {
+    text-decoration: none;
+}
+.contactUserBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    background-color: beige;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.contactUserBoxLeft img {
+    height: 60px;
+}
+.contactUserBoxRight {
+    padding-left: 15px;
+    display: flex;
+    flex-direction: column;
+}
+.contactMessagePreview {
+    padding: 0px;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+}
+.contactMessagePreview li {
+    padding-right: 10px;
+}
+.contactMessageText {
+    width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.contactMessageTime {
+    width: 80px;
+}
+.contactMessageName, .contactMessageText, .contactMessageTime {
+    color: black;
+    text-decoration: none;
+}

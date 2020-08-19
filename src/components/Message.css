@@ -1,0 +1,28 @@
+#messages {
+    height: 100vw;
+}
+#listOfMessages {
+    list-style: none;
+    text-decoration: none;
+    padding: 0px;
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.sent {
+    float:right;
+    background-color: rgb(73, 152, 255);
+    border-radius: 5px;
+    padding: 4px;
+}
+.received {
+    float: left;
+    background-color: rgb(204, 204, 204);
+    border-radius: 5px;
+    padding: 4px;
+}
+#messageForm {
+    position: absolute;
+    z-index: 2;
+    bottom:10px;
+}
