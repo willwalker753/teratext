@@ -1,9 +1,34 @@
 import React, { Component } from 'react';
+import { Redirect } from "react-router-dom";
 import Nav from './Nav';
 import './Message.css';
 
 export default class Message extends Component {
+    constructor(props) {
+        super(props)  
+        this.state = {
+            username: '',
+            loggedIn: true
+        }
+    }  
+    componentDidMount() {
+        let loggedIn = window.sessionStorage.getItem('loggedIn');
+        if (!loggedIn) {
+            this.setState({
+                loggedIn: false
+            });
+        }
+        else {
+            let username = window.sessionStorage.getItem('username');
+            this.setState({
+                username: username
+            });
+        }
+    }
     render() {
+        if(!this.state.loggedIn) {
+            return <Redirect to='/'/>
+        }
         return (
             <div>
                 <Nav page={'Message'}/>
