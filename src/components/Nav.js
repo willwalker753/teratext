@@ -7,7 +7,7 @@ export default function Nav(props) {
         <nav className='navBox'>
             <ul className='navList'>
                 <li><a href='/'>Teratext</a></li>
-                <p>Welcome {props.username}</p>
+                <p className='welcomeText'>Welcome {props.username}</p>
                 <li><a href='/user/account'>Account</a></li>
             </ul>
         </nav>
@@ -17,7 +17,7 @@ export default function Nav(props) {
         <nav className='navBox'>
             <ul className='navList'>
                 <li><a href='/user'>Back</a></li>
-                <p>Barry</p>
+                <p className='welcomeText'>Barry</p>
                 <li><a href='/user/friend'>Edit Contact</a></li>
             </ul>
         </nav>
@@ -27,7 +27,7 @@ export default function Nav(props) {
         <nav className='navBox'>
             <ul className='navList'>
                 <li><a href='/user'>Back</a></li>
-                <p>{props.username}'s Friends</p>
+                <p className='welcomeText'>{props.username}'s Friends</p>
                 <li><a href='/user/account'>Edit Account</a></li>
             </ul>
         </nav>

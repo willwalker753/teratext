@@ -18,6 +18,7 @@ export default class Friend extends Component {
             buttonMessageUsername: '+',
             errorMessageCode: '',
             nofriends: '',
+            usernameToRemove: '',
             loggedIn: true
         }
     }
@@ -25,12 +26,12 @@ export default class Friend extends Component {
         this.setState({ [e.target.name]: e.target.value });
     }
     submitCodeHandler = e => {
+        e.preventDefault();
         this.setState({ 
             buttonMessageCode: 'Loading...',
             errorMessageCode: ''
-        });
-        e.preventDefault();
-        if((this.state.friendCode === '')) {
+        })
+        if(this.state.friendCode === '') {
             this.setState({
                 errorMessageCode: 'Please enter a code',
                 buttonMessageCode: '+'
@@ -70,7 +71,71 @@ export default class Friend extends Component {
             })
         }
     }  
-    
+    submitUsernameHandler = e => {
+        e.preventDefault();
+        this.setState({ 
+            buttonMessageUsername: 'Loading...',
+            errorMessageUsername: ''
+        })
+        if((this.state.friendUsername === '')) {
+            this.setState({
+                errorMessageUsername: 'Please enter a username',
+                buttonMessageUsername: '+'
+            })
+        }
+        else if(this.state.friendUsername === this.state.username) {
+            this.setState({
+                errorMessageUsername: "Nope you can't friend yourself",
+                buttonMessageUsername: '+'
+            })
+        }
+        else{
+            let url = 'http://localhost:8000/friend/addusername';
+            axios.post(url ,this.state)
+            .then(response => {
+                if(response.status === 200){
+                    console.log(response);
+                    if(response.data === 'Account not found'){
+                        this.setState({
+                            errorMessageUsername: 'Incorrect friend username',
+                            buttonMessageUsername: '+'
+                        })
+                    }
+                    else if(response.data[0].id){
+                        this.setState({
+                            errorMessageUsername: '',
+                            buttonMessageUsername: '+'
+                        })
+                        window.location.reload();
+                    }
+                }
+            })
+            .catch(error => {
+                this.setState({
+                    errorMessageUsername: 'Incorrect friend username',
+                })
+            })
+        }
+    }
+    removeFriend = async e => {
+        console.log(e.target.id);
+        await this.setState({
+            usernameToRemove: e.target.id
+        })
+        let url = 'http://localhost:8000/friend/removefriend';
+        await axios.post(url ,this.state)
+        .then(response => {
+            if(response.status === 200){
+                console.log(response)
+            }
+        })
+        .catch(error => {
+            this.setState({
+                errorMessageCode: 'Trouble connecting to server',
+            })
+        })
+        window.location.reload();
+    }
     async componentDidMount() {
         let loggedIn = window.sessionStorage.getItem('loggedIn');
         let userId = window.sessionStorage.getItem('userID');
@@ -119,18 +184,19 @@ export default class Friend extends Component {
         return (
             <div>
                 <Nav page={'Friend'} username={ this.state.username }/>
-                <p>Your friend code is <strong>{ this.state.userId }</strong></p>
+                <p>Your username and friend code are <strong>{ this.state.username }</strong> and <strong>{ this.state.userId }</strong></p>
                 <form onSubmit={ this.submitCodeHandler }>
                     <label htmlFor='friendCode'>Add friend by their code</label>
                     <input type='number' name='friendCode' placeholder='123' onChange={ this.changeHandler }/>
                     <input type='submit' value={ this.state.buttonMessageCode }></input>
                 </form>
                 <p id='friendCodeErr'>{ this.state.errorMessageCode }</p>
-                <form>
-                    <label htmlFor='friendUsername'>Add friend by username</label>
-                    <input name='friendUsername' placeholder='Jonathan27'/>
+                <form onSubmit={ this.submitUsernameHandler }>
+                    <label htmlFor='friendUsername'>or by their username</label>
+                    <input name='friendUsername' placeholder='Jonathan27' onChange={ this.changeHandler }/>
                     <input type='submit' value={ this.state.buttonMessageUsername }></input>
                 </form>
+                <p id='friendUsernameErr'>{ this.state.errorMessageUsername }</p>
                 {this.state.friendArr.map((friend, index) => (    
                     <div key={index} className='contactUserBox'>
                         <div className='contactUserBoxLeft'>
@@ -139,7 +205,7 @@ export default class Friend extends Component {
                         <div className='contactUserBoxRight'>
                             <p className='contactMessageName'>{friend.friendusername}</p>
                             <ul className='contactMessagePreview'>
-                                <li className='contactMessageText'><button>Remove Friend</button></li>
+                                <li className='contactMessageText'><button id={friend.friendusername} onClick={ this.removeFriend }>Remove Friend</button></li>
                                 
                             </ul>
                         </div>
