@@ -6,7 +6,7 @@ export default function Nav(props) {
         return(
         <nav className='navBox'>
             <ul className='navList'>
-                <li><a href='/'>Teratext</a></li>
+                <li><a href='/user/friend'>Add a new friend</a></li>
                 <p className='welcomeText'>Welcome {props.username}</p>
                 <li><a href='/user/account'>Account</a></li>
             </ul>

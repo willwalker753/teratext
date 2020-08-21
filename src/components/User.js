@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import Nav from './Nav';
+import axios from 'axios';
 import './User.css';
 
 export default class User extends Component {
@@ -8,10 +9,15 @@ export default class User extends Component {
         super(props)  
         this.state = {
             username: '',
+            userId: '',
+            friendUsername: [],
+            friendId: [],
+            friendMessage: [],
+            friendTs: [],
             loggedIn: true
         }
     }  
-    componentDidMount() {
+    async componentDidMount() {
         let loggedIn = window.sessionStorage.getItem('loggedIn');
         if (!loggedIn) {
             this.setState({
@@ -20,9 +26,40 @@ export default class User extends Component {
         }
         else {
             let username = window.sessionStorage.getItem('username');
-            this.setState({
-                username: username
+            let userId = window.sessionStorage.getItem('userID');
+            await this.setState({
+                username: username,
+                userId: userId
             });
+            let url = 'http://localhost:8000/user';
+            axios.post(url ,this.state)
+            .then(response => {
+                if(response.status === 200){
+                    console.log(response)
+                    response = response.data;
+                    let tempFriendUsername = [];
+                    let tempFriendId = [];
+                    let tempFriendMessage = [];
+                    let tempFriendTs = [];
+                    for(let i=0;i<response.length;i++){
+                        tempFriendUsername[i] = response[i].friendusername;
+                        tempFriendId[i] = response[i].friendid;
+                        tempFriendMessage[i] = response[i].friendmessage;
+                        tempFriendTs[i] = response[i].friendts;
+                    }
+                    this.setState({
+                        friendUsername: tempFriendUsername,
+                        friendId: tempFriendId,
+                        friendMessage: tempFriendMessage,
+                        friendTs: tempFriendTs
+                    });
+                }
+            })
+            .catch(error => {
+                this.setState({
+                    errorMessage: 'Unable to retrieve friends list',
+                })
+            })
         }
     }
     render() {
@@ -32,7 +69,6 @@ export default class User extends Component {
         return (
             <div>
                 <Nav page={'User'} username={this.state.username}/>
-                <a href='/user/friend'>Add a new friend</a>
                 <div>
                     <a href='/user/message/1' className='contactMessageLink'>
                         <div className='contactUserBox'>
