@@ -5,21 +5,32 @@
     list-style: none;
     text-decoration: none;
     padding: 0px;
-    width: 85%;
+    width: 80%;
+    height: 100%;
     margin-left: auto;
     margin-right: auto;
+    
+}
+#listOfMessages > li {
+    border-radius: 5px;
+    padding: 6px;
+    padding-left: 8px;
+    padding-right: 8px;
+    width: fit-content;
+    max-width: 200px;
+    margin-top: 10px;
 }
 .sent {
-    float:right;
+    clear:right;
     background-color: rgb(73, 152, 255);
-    border-radius: 5px;
-    padding: 4px;
+    margin-left: auto;
+
 }
 .received {
-    float: left;
+    margin-right: auto;
+    clear: left;
     background-color: rgb(204, 204, 204);
-    border-radius: 5px;
-    padding: 4px;
+    margin-top: 10px;
 }
 #messageForm {
     position: absolute;

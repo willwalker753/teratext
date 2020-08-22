@@ -17,7 +17,7 @@ export default function Nav(props) {
         <nav className='navBox'>
             <ul className='navList'>
                 <li><a href='/user'>Back</a></li>
-                <p className='welcomeText'>Barry</p>
+                <p className='welcomeText'>{props.friendUsername}</p>
                 <li><a href='/user/friend'>Edit Contact</a></li>
             </ul>
         </nav>

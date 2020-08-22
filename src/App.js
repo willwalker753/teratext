@@ -19,7 +19,7 @@ function App() {
         <Route exact path="/login">
           <Login />
         </Route>
-        <Route exact path="/user/message/:contactId">
+        <Route exact path="/user/message/:friendId/:friendUsername">
           <Message />
         </Route>
         <Route exact path="/user/friend">
