@@ -37,6 +37,80 @@ export default class User extends Component {
             .then(response => {
                 if(response.status === 200){
                     response = response.data;
+                    for(let i=0; i<response.length; i++){
+                        let timeStamp = response[i].friendts;
+                        let timeStampDay = timeStamp.substring(8, 10);
+                        let timeStampHour = timeStamp.substring(11, 13);
+                        let timeStampMin = timeStamp.substring(13, 16);
+                        let curDay = new Date().toString();
+                        curDay = curDay.substring(8,10);
+                        if(timeStampDay === curDay){
+                            let meridiem = 'AM';
+                            if(timeStampHour > '12'){
+                                meridiem = 'PM';
+                                timeStampHour = (timeStampHour - 12).toString();
+                            }
+                            else if(timeStampHour === '12'){
+                                meridiem = 'PM';
+                            }
+                            else if(timeStampHour === '00'){
+                                timeStampHour = '12';
+                            }
+                            else if((timeStampHour < '10')&&(timeStampHour > '00')){
+                                timeStampHour = timeStampHour.substring(1,2);
+                            }
+                            response[i].friendts = timeStampHour + timeStampMin + ' ' + meridiem;
+                        }
+                        else if(timeStampDay !== curDay){
+                            let timeStampMonth = timeStamp.substring(5,7);
+                            timeStampMonth = parseInt(timeStampMonth, 10);
+                            switch(timeStampMonth){
+                                case 1: 
+                                    timeStampMonth = 'Jan';
+                                    break;
+                                case 2: 
+                                    timeStampMonth = 'Feb';
+                                    break;
+                                case 3: 
+                                    timeStampMonth = 'Mar';
+                                    break;
+                                case 4: 
+                                    timeStampMonth = 'Apr';
+                                    break;
+                                case 5: 
+                                    timeStampMonth = 'May';
+                                    break;
+                                case 6: 
+                                    timeStampMonth = 'Jun';
+                                    break;
+                                case 7: 
+                                    timeStampMonth = 'Jul';
+                                    break;
+                                case 8: 
+                                    timeStampMonth = 'Aug';
+                                    break;
+                                case 9: 
+                                    timeStampMonth = 'Sep';
+                                    break;
+                                case 10: 
+                                    timeStampMonth = 'Oct';
+                                    break;
+                                case 11: 
+                                    timeStampMonth = 'Nov';
+                                    break;
+                                case 12: 
+                                    timeStampMonth = 'Dec';
+                                    break;
+                                default:
+                                    break;
+                            }
+                            timeStampDay = parseInt(timeStampDay, 10);        
+                            response[i].friendts = timeStampMonth + ' ' + timeStampDay;
+                        }
+                        if(response[i].friendts === 'NaN NaN'){
+                            response[i].friendts = '';
+                        }
+                    }
                     this.setState({
                         friendArr: response
                     })

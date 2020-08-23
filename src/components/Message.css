@@ -9,31 +9,62 @@
     height: 100%;
     margin-left: auto;
     margin-right: auto;
-    
 }
-#listOfMessages > li {
-    border-radius: 5px;
+.sent, .received { 
     padding: 6px;
     padding-left: 8px;
     padding-right: 8px;
     width: fit-content;
     max-width: 200px;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 .sent {
+    border-radius: 5px 5px 0px 5px;
     clear:right;
     background-color: rgb(73, 152, 255);
     margin-left: auto;
-
 }
 .received {
+    border-radius: 5px 5px 5px 0px;
     margin-right: auto;
     clear: left;
     background-color: rgb(204, 204, 204);
-    margin-top: 10px;
+}
+.sentTs, .receivedTs{
+    color: rgb(133, 133, 133);
+    font-size: 12px;
+    margin-left: 2px;
+}
+.sentTs {
+    float:right;
+    margin-right: 2px;
+}
+.receivedTs {
+    float:left;
+    margin-left: 2px;
 }
 #messageForm {
-    position: absolute;
+    display: flex;
+    position: fixed;
     z-index: 2;
     bottom:10px;
+}
+#textFormText {
+    min-width: 240px;
+}
+#picForm{
+    border: 1px solid rgb(133, 133, 133);
+    border-radius: 2px;
+    background-color:#EFEFEF;
+    color: rgb(47, 47, 47);
+    font-size: 14px;
+    padding-top:2px;
+    padding-left: 7px;
+    padding-right: 7px;
+    text-align: center;
+    float: left;
+    cursor: pointer
+}
+#messageFileInput {
+    display: none;
 }
