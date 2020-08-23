@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect, withRouter } from "react-router-dom";
+import FileBase64 from 'react-file-base64';
 import Nav from './Nav';
 import axios from 'axios';
 import './Message.css';
@@ -15,6 +16,7 @@ class Message extends Component {
             friendUsername: '',
             messageArr: [],
             text: '',
+            picture: [],
             loggedIn: true
         }
     }  
@@ -61,7 +63,7 @@ class Message extends Component {
             });
         }
         this.getMessages();
-        setInterval(this.getMessages, 1500);
+        setInterval(this.getMessages, 2500);
     }
     getMessages = async () => {
         let url = 'http://localhost:8000/message/all';
@@ -69,12 +71,6 @@ class Message extends Component {
         .then(response => {
             if(response.status === 200){
                 response = response.data.rows;
-                
-                //for(let i=0; i<res.length; i++){
-                //    if(res[i].sender !== username){res[i].sender = 'received'}
-                //    else if(res[i].sender === username){res[i].sender = 'sent'}
-                //}
-                console.log(response);
                 for(let i=0; i<response.length; i++){
                     if(response[i].sender !== username){response[i].sender = 'received'}
                     else if(response[i].sender === username){response[i].sender = 'sent'}
@@ -84,6 +80,10 @@ class Message extends Component {
                     let timeStampMin = timeStamp.substring(13, 16);
                     let curDay = new Date().toString();
                     curDay = curDay.substring(8,10);
+                    if(response[i].message === null) {
+                        let tempMessage = <img src={response[i].picture} alt='message'/>;
+                        response[i].message = tempMessage;
+                    }
                     if(timeStampDay === curDay){
                         let meridiem = 'AM';
                         if(timeStampHour > '12'){
@@ -102,6 +102,20 @@ class Message extends Component {
                         response[i].ts = timeStampHour + timeStampMin + ' ' + meridiem;
                     }
                     else if(timeStampDay !== curDay){
+                        let meridiem = 'AM';
+                        if(timeStampHour > '12'){
+                            meridiem = 'PM';
+                            timeStampHour = (timeStampHour - 12).toString();
+                        }
+                        else if(timeStampHour === '12'){
+                            meridiem = 'PM';
+                        }
+                        else if(timeStampHour === '00'){
+                            timeStampHour = '12';
+                        }
+                        else if((timeStampHour < '10')&&(timeStampHour > '00')){
+                            timeStampHour = timeStampHour.substring(1,2);
+                        }
                         let timeStampMonth = timeStamp.substring(5,7);
                         timeStampMonth = parseInt(timeStampMonth, 10);
                         switch(timeStampMonth){
@@ -145,7 +159,7 @@ class Message extends Component {
                                 break;
                         }
                         timeStampDay = parseInt(timeStampDay, 10);        
-                        response[i].ts = timeStampMonth + ' ' + timeStampDay;
+                        response[i].ts = timeStampHour + timeStampMin + ' ' + meridiem + ' ' + timeStampMonth + ' ' + timeStampDay;
                     }
                     if(response[i].ts === 'NaN NaN'){
                         response[i].ts = '';
@@ -159,6 +173,21 @@ class Message extends Component {
         .catch(error => {
             this.setState({
                 errorMessage: 'Unable to find your messages',
+            })
+        })
+    }
+    async getFiles(picture){
+        this.setState({ picture: picture })
+        let url = 'http://localhost:8000/message/send/pic';
+        await axios.post(url ,this.state)
+        .then(response => {
+            if(response.status === 200){
+                window.location.reload();
+            }
+        })
+        .catch(error => {
+            this.setState({
+                errorMessage: 'Unable to send your message',
             })
         })
     }
@@ -185,13 +214,18 @@ class Message extends Component {
                         <input type="text" id='textFormText' name='text' value={this.state.text} onChange={ this.changeHandler }></input>
                         <input type="submit" value='Send'></input>
                     </form>
-                    <form id='picForm'>
-                        <label htmlFor='picture'><i className="fas fa-camera"></i></label>
-                        <input type="file" name='picture' accept="image/*" id="messageFileInput"></input>
-                    </form>
+                    <FileBase64
+                        multiple={ false }
+                        onDone={ this.getFiles.bind(this) } 
+                    />
                 </div>    
             </div>
         )
     }
 }
+
+//<form id='picForm'>
+//                        <label htmlFor='picture'><i className="fas fa-camera"></i></label>
+  //                      <input type="file" name='picture' accept="image/*" id="messageFileInput"></input>
+    //                </form>
 export default withRouter(Message);
