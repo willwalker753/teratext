@@ -9,6 +9,7 @@ export default class Signup extends Component {
              username: '',
              password: '',
              repeatPassword: '',
+             profilePic: 'https://github.com/willwalker753/organizing-your-react-code/blob/master/defaultProfilePic.png?raw=true',
              redirect: false,
              errorMessage: '',
              buttonMessage: 'Sign Up'

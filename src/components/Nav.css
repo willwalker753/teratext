@@ -16,3 +16,15 @@
 .welcomeText {
     text-transform: capitalize;
 }
+#navFriendPicName {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+#navFriendProfilePic {
+    height: 30px;
+    width: 30px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-left: 10px;
+}

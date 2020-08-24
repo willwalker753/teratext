@@ -21,7 +21,8 @@ class Message extends Component {
             numOfMessages: 0,
             loggedIn: true,
             testRender: false,
-            testUri: ''
+            testUri: '',
+            friendProfilePic: ''
         }
     }  
     changeHandler = e => {
@@ -65,6 +66,21 @@ class Message extends Component {
                 friendId: friendId,
                 friendUsername: friendUsername
             });
+            let url = 'http://localhost:8000/message/profilepic';
+            await axios.post(url ,this.state)
+            .then(response => {
+                if(response.status === 200){
+                    console.log(response)
+                    this.setState({
+                        friendProfilePic: response.data.profilepic
+                    });
+                }
+            })
+            .catch(error => {
+                this.setState({
+                    errorMessage: 'Unable to send your message',
+                })
+            })
         }
         this.getMessages();
         setInterval(this.getMessages, 2500);
@@ -222,7 +238,7 @@ class Message extends Component {
         }
         return (
             <div>
-                <Nav page={'Message'} friendUsername={this.state.friendUsername}/>
+                <Nav page={'Message'} friendUsername={this.state.friendUsername} friendProfilePic={this.state.friendProfilePic}/>
                 <div id='messages'>
                     <ul id='listOfMessages'>
                         {this.state.messageArr.map((message, index) => (
@@ -237,7 +253,7 @@ class Message extends Component {
                 <div id='messageForm'>
                     <form id='textForm' onSubmit={ this.submitHandler }>
                         <input type="text" id='textFormText' name='text' value={this.state.text} onChange={ this.changeHandler }></input>
-                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                        <button type="submit"><i className="fas fa-paper-plane"></i></button>
                     </form>
                     <form id='pictureMessageForm'>  
                         <button id='pictureMessageInput'>
@@ -255,8 +271,4 @@ class Message extends Component {
     }
 }
 
-//<form id='picForm'>
-//                        <label htmlFor='picture'><i className="fas fa-camera"></i></label>
-  //                      <input type="file" name='picture' accept="image/*" id="messageFileInput"></input>
-    //                </form>
 export default withRouter(Message);

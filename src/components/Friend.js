@@ -154,9 +154,8 @@ export default class Friend extends Component {
             let url = 'http://localhost:8000/friend/all';
             axios.post(url ,this.state)
             .then(response => {
-                if(response.status === 200){
+                if(response.status === 200){                   
                     let res = response.data;
-                    
                     for(let i=0; i<res.length; i++){
                         friendArr[i] = res[i];
                     }
@@ -177,6 +176,7 @@ export default class Friend extends Component {
             })
         }
     }
+    
     render() {
         if(!this.state.loggedIn) {
             return <Redirect to='/'/>
@@ -184,7 +184,7 @@ export default class Friend extends Component {
         return (
             <div>
                 <Nav page={'Friend'} username={ this.state.username }/>
-                <p>Your username and friend code are <strong>{ this.state.username }</strong> and <strong>{ this.state.userId }</strong></p>
+                <p id='friendUsernameCodeInfo'>Your username and friend code are <strong>{ this.state.username }</strong> and <strong>{ this.state.userId }</strong></p>
                 <form onSubmit={ this.submitCodeHandler }>
                     <label htmlFor='friendCode'>Add friend by their code</label>
                     <input type='number' name='friendCode' placeholder='123' onChange={ this.changeHandler }/>
@@ -200,7 +200,7 @@ export default class Friend extends Component {
                 {this.state.friendArr.map((friend, index) => (    
                     <div key={index} className='contactUserBox'>
                         <div className='contactUserBoxLeft'>
-                            <img src='https://toppng.com/uploads/preview/instagram-default-profile-picture-11562973083brycehrmyv.png' alt='placeholder'></img>
+                            <img src={friend.friendProfilePic} alt='friend profile'></img>
                         </div>
                         <div className='contactUserBoxRight'>
                             <p className='contactMessageName'>{friend.friendusername}</p>

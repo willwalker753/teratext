@@ -33,6 +33,7 @@ export default class Login extends Component {
             axios.post(url ,this.state)
             .then(response => {
                 if(response.status === 200){
+                    console.log(response)
                     window.sessionStorage.setItem('loggedIn', true)
                     window.sessionStorage.setItem('username', response.data[0].username)
                     window.sessionStorage.setItem('userID', response.data[0].id)
