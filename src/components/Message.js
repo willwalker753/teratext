@@ -3,6 +3,7 @@ import { Redirect, withRouter } from "react-router-dom";
 import FileBase64 from 'react-file-base64';
 import Nav from './Nav';
 import axios from 'axios';
+import resizebase64 from 'resize-base64';
 import './Message.css';
 
 let username = window.sessionStorage.getItem('username');
@@ -17,7 +18,10 @@ class Message extends Component {
             messageArr: [],
             text: '',
             picture: [],
-            loggedIn: true
+            numOfMessages: 0,
+            loggedIn: true,
+            testRender: false,
+            testUri: ''
         }
     }  
     changeHandler = e => {
@@ -67,11 +71,16 @@ class Message extends Component {
     }
     getMessages = async () => {
         let url = 'http://localhost:8000/message/all';
-        await axios.post(url ,this.state)
+        let body = {username: this.state.username, userId: this.state.userId, friendUsername: this.state.friendUsername, friendId: this.state.friendId, numOfMessages: this.state.numOfMessages}
+        await axios.post(url , body)
         .then(response => {
             if(response.status === 200){
                 response = response.data.rows;
                 for(let i=0; i<response.length; i++){
+                    this.setState({
+                        numOfMessages: response.length
+                    })
+                    console.log(response)
                     if(response[i].sender !== username){response[i].sender = 'received'}
                     else if(response[i].sender === username){response[i].sender = 'sent'}
                     let timeStamp = response[i].ts;
@@ -177,7 +186,19 @@ class Message extends Component {
         })
     }
     async getFiles(picture){
-        this.setState({ picture: picture })
+        await this.setState({
+            testRender: true,
+            testUri: picture.base64
+        })
+        let testImageW = Math.floor((document.getElementById('testImage').width) / 4);
+        let testImageH = Math.floor((document.getElementById('testImage').height) / 4);
+        console.log(testImageW, testImageH)
+        picture.base64 = resizebase64(picture.base64, testImageW, testImageH)
+        this.setState({ 
+            picture: picture,
+            testRender: false,
+            testUri: ''
+        })
         let url = 'http://localhost:8000/message/send/pic';
         await axios.post(url ,this.state)
         .then(response => {
@@ -191,9 +212,13 @@ class Message extends Component {
             })
         })
     }
+
     render() {
         if(!this.state.loggedIn) {
             return <Redirect to='/'/>
+        }
+        if(this.state.testRender) {
+            return <img src={this.state.testUri}  id='testImage' alt='test'></img>
         }
         return (
             <div>
@@ -202,8 +227,8 @@ class Message extends Component {
                     <ul id='listOfMessages'>
                         {this.state.messageArr.map((message, index) => (
                             <React.Fragment key={message.id}>
-                                <li className={message.sender}>{message.message}</li>
                                 <li className={message.sender+'Ts'}>{message.ts}</li>
+                                <li className={message.sender}>{message.message}</li>                  
                             </React.Fragment>
                         ))}
                     </ul>
@@ -212,12 +237,18 @@ class Message extends Component {
                 <div id='messageForm'>
                     <form id='textForm' onSubmit={ this.submitHandler }>
                         <input type="text" id='textFormText' name='text' value={this.state.text} onChange={ this.changeHandler }></input>
-                        <input type="submit" value='Send'></input>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
                     </form>
-                    <FileBase64
-                        multiple={ false }
-                        onDone={ this.getFiles.bind(this) } 
-                    />
+                    <form id='pictureMessageForm'>  
+                        <button id='pictureMessageInput'>
+                        <i className="fas fa-camera"></i>
+                            <FileBase64
+                            multiple={ false }
+                            onDone={ this.getFiles.bind(this) }   
+                        />
+                        </button>
+                    </form>
+                    
                 </div>    
             </div>
         )

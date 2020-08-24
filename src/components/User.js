@@ -37,7 +37,17 @@ export default class User extends Component {
             .then(response => {
                 if(response.status === 200){
                     response = response.data;
+                    console.log(response)
                     for(let i=0; i<response.length; i++){
+                        if(response[i].friendmessage === null){
+                            if(response[i].friendusername !== username){
+                                response[i].friendmessage =  response[i].friendusername + ' sent a picture';
+                            }
+                            else{
+                                response[i].friendmessage =  'You sent a picture';
+                            }
+                            
+                        }
                         let timeStamp = response[i].friendts;
                         let timeStampDay = timeStamp.substring(8, 10);
                         let timeStampHour = timeStamp.substring(11, 13);
@@ -131,6 +141,7 @@ export default class User extends Component {
             <div>
                 <Nav page={'User'} username={this.state.username}/>
                 <div>
+                    <div id='userSpaceTop'></div>
                     {this.state.friendArr.map((friend, index) => (
                         <a key={index} href={'/user/message/'+friend.friendid+'/'+friend.friendusername} className='contactMessageLink'>
                             <div className='contactUserBox'>
