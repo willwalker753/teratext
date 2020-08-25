@@ -16,7 +16,7 @@
     margin: 0px;
     width: 40vw;
     height: 100vh;
-    background-color: rgb(168, 168, 168);
+    background-color: rgb(216, 216, 216);
 }
 .navList > button, .navList > p, .navList > li {
     margin-top: 15px;
@@ -26,11 +26,15 @@
 .welcomeText {
     text-transform: capitalize;
 }
+.friendNavText {
+    text-transform: capitalize;
+    margin-right: 38%;
+}
 #navFriendPicName {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-right: 10px;
+    margin-right: 40%;
 }
 #navFriendProfilePic {
     height: 30px;
@@ -39,17 +43,51 @@
     border-radius: 15px;
     margin-left: 10px;
 }
+#navButtonAndHeader {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+#navTeratext {
+    font-size: 20px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 10px;
+}
+#hamburgerButtonOnMenu {
+    
+    margin-right: 10px;
+    
+}
 #hamburgerButton {
     margin: 10px;
 }
-#hamburgerButtonOnMenu {
-    align-self: flex-end;
-    margin-right: 10px;
-    margin-top: 10px;
-}
-#hamburgerMenu {
-    display: none;
+#hamburgerMenu { 
     position: fixed;
+    right: 100vw;
     top: 0px;
     z-index: 10;
+}
+.hamburgerAnimateIn {
+    position: relative;
+    right: 100vw;
+    animation-name: hamburgerSlideIn;
+    animation-duration: 70s;
+}
+@keyframes hamburgerSlideIn {
+    0% {right: 60vw;}
+    1% {right: 100vw;}
+    100% {right: 100vw;}
+}
+.hamburgerAnimateOut {
+    position: relative;
+    right: 60vw;
+    animation-name: hamburgerSlideOut;
+    animation-duration: 70s;
+}
+@keyframes hamburgerSlideOut {
+    0% {right: 100vw;}
+    1% {right: 60vw;}
+    100% {right: 60vw;}
 }

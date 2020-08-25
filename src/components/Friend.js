@@ -136,6 +136,24 @@ export default class Friend extends Component {
         })
         window.location.reload();
     }
+    deleteConversation = async e => {
+        console.log(e.target.id);
+        await this.setState({
+            usernameToRemove: e.target.id
+        })
+        let url = 'http://localhost:8000/friend/deleteconversation';
+        await axios.post(url ,this.state)
+        .then(response => {
+            if(response.status === 200){
+                window.location.reload();
+            }
+        })
+        .catch(error => {
+            this.setState({
+                errorMessageCode: 'Trouble connecting to server',
+            })
+        })
+    }
     async componentDidMount() {
         let loggedIn = window.sessionStorage.getItem('loggedIn');
         let userId = window.sessionStorage.getItem('userID');
@@ -204,9 +222,9 @@ export default class Friend extends Component {
                         </div>
                         <div className='contactUserBoxRight'>
                             <p className='contactMessageName'>{friend.friendusername}</p>
-                            <ul className='contactMessagePreview'>
+                            <ul className='deleteFriendBox'>
                                 <li className='contactMessageText'><button id={friend.friendusername} onClick={ this.removeFriend }>Remove Friend</button></li>
-                                
+                                <li className='contactMessageText'><button id={friend.friendusername} onClick={ this.deleteConversation }>Delete Conversation</button></li>
                             </ul>
                         </div>
                     </div>

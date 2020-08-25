@@ -158,6 +158,7 @@ export default class User extends Component {
                             </div>
                         </a>
                     ))}
+                    <p><a href='/user/friend'>Add a new friend here</a></p>
                 </div>
             </div>
         )

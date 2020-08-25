@@ -7,30 +7,31 @@ export default function Nav(props) {
         window.sessionStorage.clear();
         window.location.replace('/');
     }
-    function hamburgerMenu(e) {
-        console.log(e)
-        let hamburgerMenu = document.getElementById('hamburgerMenu');
-        if(hamburgerMenu.style.display === "block") {
-            hamburgerMenu.style.display = "none";
-        } 
-        else{
-            hamburgerMenu.style.display = "block";
-        }
+    function hamburgerMenuOut() {
+        document.getElementById('hamburgerMenu').className='hamburgerAnimateOut';
+    }
+    function hamburgerMenuIn() {
+        document.getElementById('hamburgerMenu').className='hamburgerAnimateIn';
     }
     if(props.page === 'User') {
         return(
         <>
             <div id='hamburgerMenu'>
                 <ul className='navList'>
-                    <button id='hamburgerButtonOnMenu' onClick={hamburgerMenu}><i class="fas fa-times"></i></button>
+                    <div id='navButtonAndHeader'>
+                        <p id='navTeratext'><a href='/'>Teratext</a></p>
+                        <button id='hamburgerButtonOnMenu' onClick={hamburgerMenuIn}><i className="fas fa-times"></i></button>
+                    </div>
                     <p className='welcomeText'>Welcome {props.username}</p>
-                    <li><a href='/user/friend'>Add a new friend</a></li>                
+                    <li><a href='/user'>Messages</a></li>
+                    <li><a href='/user/friend'>Contacts</a></li>              
                     <li><a href='/user/account'>Account</a></li>
                     <button onClick={logoutHandler}>Logout</button>
                 </ul>
             </div>
             <nav className='navBox'>
-                <button id='hamburgerButton' onClick={hamburgerMenu}><i class="fas fa-bars"></i></button>
+                <button id='hamburgerButton' onClick={hamburgerMenuOut}><i className="fas fa-bars"></i></button>
+                <p className='friendNavText'>{props.username}'s Messages</p>
             </nav>
         </>
         
@@ -40,14 +41,18 @@ export default function Nav(props) {
         <>
             <div id='hamburgerMenu'>
                 <ul className='navList'>
-                    <button id='hamburgerButtonOnMenu' onClick={hamburgerMenu}><i class="fas fa-times"></i></button>
-                    <li><a href='/user'>Back</a></li>
-                    <li><a href='/user/friend'>Edit Contact</a></li>
+                    <div id='navButtonAndHeader'>
+                        <p id='navTeratext'><a href='/'>Teratext</a></p>
+                        <button id='hamburgerButtonOnMenu' onClick={hamburgerMenuIn}><i className="fas fa-times"></i></button>
+                    </div>
+                    <li><a href='/user'>Messages</a></li>
+                    <li><a href='/user/friend'>Contacts</a></li>              
+                    <li><a href='/user/account'>Account</a></li>
                     <button onClick={logoutHandler}>Logout</button>
                 </ul>
             </div>
             <nav className='navBox'>
-                <button id='hamburgerButton' onClick={hamburgerMenu}><i class="fas fa-bars"></i></button>
+                <button id='hamburgerButton' onClick={hamburgerMenuOut}><i className="fas fa-bars"></i></button>
                 <div id='navFriendPicName'>
                     <p className='welcomeText'>{props.friendUsername}</p>
                     <img src={props.friendProfilePic} id='navFriendProfilePic' alt='friend profile'></img>  
@@ -61,15 +66,41 @@ export default function Nav(props) {
             <>
                 <div id='hamburgerMenu'>
                     <ul className='navList'>
-                        <button id='hamburgerButtonOnMenu' onClick={hamburgerMenu}><i class="fas fa-times"></i></button>
-                        <li><a href='/user'>Back</a></li>
-                        <li><a href='/user/account'>Edit Account</a></li>
+                        <div id='navButtonAndHeader'>
+                            <p id='navTeratext'><a href='/'>Teratext</a></p>
+                            <button id='hamburgerButtonOnMenu' onClick={hamburgerMenuIn}><i className="fas fa-times"></i></button>
+                        </div>
+                        <li><a href='/user'>Messages</a></li>
+                        <li><a href='/user/friend'>Contacts</a></li>              
+                        <li><a href='/user/account'>Account</a></li>
                         <button onClick={logoutHandler}>Logout</button>
                     </ul>
                 </div>
                 <nav className='navBox'>
-                    <button id='hamburgerButton' onClick={hamburgerMenu}><i class="fas fa-bars"></i></button>
-                    <p className='welcomeText'>{props.username}'s Friends</p>
+                    <button id='hamburgerButton' onClick={hamburgerMenuOut}><i className="fas fa-bars"></i></button>
+                    <p className='friendNavText'>{props.username}'s Friends</p>
+                </nav>
+            </>
+        )
+    }
+    if(props.page === 'Account') {
+        return(
+            <>
+                <div id='hamburgerMenu'>
+                    <ul className='navList'>
+                        <div id='navButtonAndHeader'>
+                            <p id='navTeratext'><a href='/'>Teratext</a></p>
+                            <button id='hamburgerButtonOnMenu' onClick={hamburgerMenuIn}><i className="fas fa-times"></i></button>
+                        </div>
+                        <li><a href='/user'>Messages</a></li>
+                        <li><a href='/user/friend'>Contacts</a></li>              
+                        <li><a href='/user/account'>Account</a></li>
+                        <button onClick={logoutHandler}>Logout</button>
+                    </ul>
+                </div>
+                <nav className='navBox'>
+                    <button id='hamburgerButton' onClick={hamburgerMenuOut}><i className="fas fa-bars"></i></button>
+                    <p className='friendNavText'>{props.username}'s Account</p>
                 </nav>
             </>
         )

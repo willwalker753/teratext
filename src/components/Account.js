@@ -1,23 +1,29 @@
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
+import Nav from './Nav';
 import FileBase64 from 'react-file-base64';
 import resizebase64 from 'resize-base64';
 import axios from 'axios';
+import './Account.css'
 export default class Account extends Component {
     constructor(props) {
         super(props)  
         this.state = {
             username: '',
+            userId: '',
+            profilePic: '',
             testRender: false,
             testUri: '',
-            loggedIn: true
+            loggedIn: true,
+            deleteAccountMessage: 'Delete Account'
         }
+        this.deleteAccount = this.deleteAccount.bind(this)
     }  
     logoutHandler = e => {
         window.sessionStorage.clear();
         window.location.replace('/');
     }
-    componentDidMount() {
+    async componentDidMount() {
         let loggedIn = window.sessionStorage.getItem('loggedIn');
         if (!loggedIn) {
             this.setState({
@@ -26,11 +32,28 @@ export default class Account extends Component {
         }
         else {
             let username = window.sessionStorage.getItem('username');
-            this.setState({
-                username: username
+            let userId = window.sessionStorage.getItem('userID');
+            await this.setState({
+                username: username,
+                userId: userId
             });
+            let url = 'http://localhost:8000/account/profilepic/get';
+            axios.post(url ,this.state)
+            .then(response => {
+                if(response.status === 200){
+                    this.setState({
+                        profilePic: response.data.rows[0].profilepic
+                    })
+                }
+            })
+            .catch(error => {
+                this.setState({
+                    errorMessage: 'Incorrect username or password',
+                })
+            })
         }
     }
+        
     async profilePic(picture){
         await this.setState({
             testRender: true,
@@ -45,19 +68,41 @@ export default class Account extends Component {
             testRender: false,
             testUri: ''
         })
-        let url = 'http://localhost:8000/account/profilepic';
+        let url = 'http://localhost:8000/account/profilepic/update';
         await axios.post(url ,this.state)
         .then(response => {
             if(response.status === 200){
-                console.log(response)
-                //window.location.reload();
+                this.componentDidMount();
             }
         })
         .catch(error => {
             this.setState({
-                errorMessage: 'Unable to send your message',
+                errorMessage: 'Unable to update your image',
             })
         })
+    }
+    async deleteAccount() {
+        if(this.state.deleteAccountMessage === 'Delete Account'){
+            this.setState({
+                deleteAccountMessage: 'Are you sure you want to delete everything?'
+            });
+        }
+        else{
+            let url = 'http://localhost:8000/account/delete';
+            await axios.post(url ,this.state)
+            .then(response => {
+                if(response.status === 200){
+                    this.setState({
+                        loggedIn: false
+                    });
+                }
+            })
+            .catch(error => {
+                this.setState({
+                    errorMessage: 'Unable to delete your account',
+                })
+            })
+        }
     }
     render() {
         if(!this.state.loggedIn) {
@@ -68,11 +113,12 @@ export default class Account extends Component {
         }
         return (
             <div>
-                <a href='/user'>Back</a>
+                <Nav page={'Account'} username={this.state.username}/>
+                <img id='accountProfilePic' src={this.state.profilePic} alt='my profile'></img>
                 <form id='pictureMessageForm'>  
                     <p>Change your profile picture</p>
                     <button id='pictureMessageInput'>
-                    <i className="fas fa-camera"></i>
+                    <i className="fas fa-images"></i>
                         <FileBase64
                         multiple={ false }
                         onDone={ this.profilePic.bind(this) }   
@@ -80,6 +126,7 @@ export default class Account extends Component {
                     </button>
                 </form>
                 <button onClick={ this.logoutHandler }>Logout</button>
+                <button onClick={ this.deleteAccount }>{this.state.deleteAccountMessage}</button>
             </div>
         )
     }

@@ -12,7 +12,8 @@
     margin-right: auto;
     width: 90%;
     background-color: beige;
-    padding: 10px;
+    padding-left: 15px;
+    padding-right: 10px;
     margin-bottom: 10px;
 }
 .contactUserBoxLeft img {

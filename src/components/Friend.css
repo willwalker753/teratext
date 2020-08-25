@@ -1,3 +1,9 @@
 #friendUsernameCodeInfo {
     margin-top: 60px;
 }
+.deleteFriendBox {
+    padding-left: 0px;
+}
+.deleteFriendBox > li {
+    margin-bottom: 8px;
+}
