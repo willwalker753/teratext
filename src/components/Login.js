@@ -29,7 +29,7 @@ export default class Login extends Component {
             })
         }
         else{
-            let url = 'http://localhost:8000/login';
+            let url = 'https://tera-text-api.herokuapp.com/login';
             axios.post(url ,this.state)
             .then(response => {
                 if(response.status === 200){

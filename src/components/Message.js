@@ -33,7 +33,7 @@ class Message extends Component {
         e.target.value = '';
         if(this.state.text === ''){return}
         console.log(this.state.text)
-        let url = 'http://localhost:8000/message/send';
+        let url = 'https://tera-text-api.herokuapp.com/message/send';
         axios.post(url ,this.state)
         .then(response => {
             if(response.status === 200){
@@ -66,7 +66,7 @@ class Message extends Component {
                 friendId: friendId,
                 friendUsername: friendUsername
             });
-            let url = 'http://localhost:8000/message/profilepic';
+            let url = 'https://tera-text-api.herokuapp.com/message/profilepic';
             await axios.post(url ,this.state)
             .then(response => {
                 if(response.status === 200){
@@ -86,7 +86,7 @@ class Message extends Component {
         setInterval(this.getMessages, 2500);
     }
     getMessages = async () => {
-        let url = 'http://localhost:8000/message/all';
+        let url = 'https://tera-text-api.herokuapp.com/message/all';
         let body = {username: this.state.username, userId: this.state.userId, friendUsername: this.state.friendUsername, friendId: this.state.friendId, numOfMessages: this.state.numOfMessages}
         await axios.post(url , body)
         .then(response => {
@@ -215,7 +215,7 @@ class Message extends Component {
             testRender: false,
             testUri: ''
         })
-        let url = 'http://localhost:8000/message/send/pic';
+        let url = 'https://tera-text-api.herokuapp.com/message/send/pic';
         await axios.post(url ,this.state)
         .then(response => {
             if(response.status === 200){

@@ -14,7 +14,7 @@ export default class Home extends Component {
             "username": "dog",
             "password": "d"
         }
-        let url = 'http://localhost:8000/login';
+        let url = 'https://tera-text-api.herokuapp.com/login';
         await axios.post(url, reqBody)
         .then(response => {
             if(response.status === 200){

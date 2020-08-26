@@ -37,7 +37,7 @@ export default class Signup extends Component {
             })
         }
         else{
-            let url = 'http://localhost:8000/register';
+            let url = 'https://tera-text-api.herokuapp.com/register';
             axios.post(url ,this.state)
             .then(response => {
                 console.log(response);

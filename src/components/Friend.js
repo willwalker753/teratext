@@ -44,7 +44,7 @@ export default class Friend extends Component {
             })
         }
         else{
-            let url = 'http://localhost:8000/friend/addcode';
+            let url = 'https://tera-text-api.herokuapp.com/friend/addcode';
             axios.post(url ,this.state)
             .then(response => {
                 if(response.status === 200){
@@ -90,7 +90,7 @@ export default class Friend extends Component {
             })
         }
         else{
-            let url = 'http://localhost:8000/friend/addusername';
+            let url = 'https://tera-text-api.herokuapp.com/friend/addusername';
             axios.post(url ,this.state)
             .then(response => {
                 if(response.status === 200){
@@ -122,7 +122,7 @@ export default class Friend extends Component {
         await this.setState({
             usernameToRemove: e.target.id
         })
-        let url = 'http://localhost:8000/friend/removefriend';
+        let url = 'https://tera-text-api.herokuapp.com/friend/removefriend';
         await axios.post(url ,this.state)
         .then(response => {
             if(response.status === 200){
@@ -141,7 +141,7 @@ export default class Friend extends Component {
         await this.setState({
             usernameToRemove: e.target.id
         })
-        let url = 'http://localhost:8000/friend/deleteconversation';
+        let url = 'https://tera-text-api.herokuapp.com/friend/deleteconversation';
         await axios.post(url ,this.state)
         .then(response => {
             if(response.status === 200){
@@ -169,7 +169,7 @@ export default class Friend extends Component {
                 username: username,
                 userId: userId
             });
-            let url = 'http://localhost:8000/friend/all';
+            let url = 'https://tera-text-api.herokuapp.com/friend/all';
             axios.post(url ,this.state)
             .then(response => {
                 if(response.status === 200){                   

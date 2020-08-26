@@ -37,7 +37,7 @@ export default class Account extends Component {
                 username: username,
                 userId: userId
             });
-            let url = 'http://localhost:8000/account/profilepic/get';
+            let url = 'https://tera-text-api.herokuapp.com/account/profilepic/get';
             axios.post(url ,this.state)
             .then(response => {
                 if(response.status === 200){
@@ -68,7 +68,7 @@ export default class Account extends Component {
             testRender: false,
             testUri: ''
         })
-        let url = 'http://localhost:8000/account/profilepic/update';
+        let url = 'https://tera-text-api.herokuapp.com/profilepic/update';
         await axios.post(url ,this.state)
         .then(response => {
             if(response.status === 200){
@@ -93,7 +93,7 @@ export default class Account extends Component {
             });
         }
         else{
-            let url = 'http://localhost:8000/account/delete';
+            let url = 'https://tera-text-api.herokuapp.com/account/delete';
             await axios.post(url ,this.state)
             .then(response => {
                 if(response.status === 200){

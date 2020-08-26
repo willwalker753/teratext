@@ -32,7 +32,7 @@ export default class User extends Component {
                 username: username,
                 userId: userId
             });
-            let url = 'http://localhost:8000/user';
+            let url = 'https://tera-text-api.herokuapp.com/user';
             axios.post(url ,this.state)
             .then(response => {
                 if(response.status === 200){
