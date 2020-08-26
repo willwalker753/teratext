@@ -68,7 +68,7 @@ export default class Account extends Component {
             testRender: false,
             testUri: ''
         })
-        let url = 'https://tera-text-api.herokuapp.com/profilepic/update';
+        let url = 'https://tera-text-api.herokuapp.com/account/profilepic/update';
         await axios.post(url ,this.state)
         .then(response => {
             if(response.status === 200){
