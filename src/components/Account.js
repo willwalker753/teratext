@@ -82,7 +82,12 @@ export default class Account extends Component {
         })
     }
     async deleteAccount() {
-        if(this.state.deleteAccountMessage === 'Delete Account'){
+        if(this.state.username === 'dog') {
+            this.setState({
+                deleteAccountMessage: "Can't delete a demo account"
+            });
+        }
+        else if(this.state.deleteAccountMessage === 'Delete Account'){
             this.setState({
                 deleteAccountMessage: 'Are you sure you want to delete everything?'
             });

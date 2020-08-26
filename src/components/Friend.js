@@ -203,18 +203,20 @@ export default class Friend extends Component {
             <div>
                 <Nav page={'Friend'} username={ this.state.username }/>
                 <p id='friendUsernameCodeInfo'>Your username and friend code are <strong>{ this.state.username }</strong> and <strong>{ this.state.userId }</strong></p>
-                <form onSubmit={ this.submitCodeHandler }>
-                    <label htmlFor='friendCode'>Add friend by their code</label>
-                    <input type='number' name='friendCode' placeholder='123' onChange={ this.changeHandler }/>
-                    <input type='submit' value={ this.state.buttonMessageCode }></input>
-                </form>
-                <p id='friendCodeErr'>{ this.state.errorMessageCode }</p>
+                
                 <form onSubmit={ this.submitUsernameHandler }>
-                    <label htmlFor='friendUsername'>or by their username</label>
+                    <label htmlFor='friendUsername'>Add friend by their username</label>
                     <input name='friendUsername' placeholder='Jonathan27' onChange={ this.changeHandler }/>
                     <input type='submit' value={ this.state.buttonMessageUsername }></input>
                 </form>
                 <p id='friendUsernameErr'>{ this.state.errorMessageUsername }</p>
+                <form onSubmit={ this.submitCodeHandler }>
+                    <label htmlFor='friendCode'>or by their code</label>
+                    <input type='number' name='friendCode' placeholder='123' onChange={ this.changeHandler }/>
+                    <input type='submit' value={ this.state.buttonMessageCode }></input>
+                </form>
+                <p id='friendCodeErr'>{ this.state.errorMessageCode }</p>
+                
                 {this.state.friendArr.map((friend, index) => (    
                     <div key={index} className='contactUserBox'>
                         <div className='contactUserBoxLeft'>

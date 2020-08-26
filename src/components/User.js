@@ -37,7 +37,6 @@ export default class User extends Component {
             .then(response => {
                 if(response.status === 200){
                     response = response.data;
-                    console.log(response[0].friendProfilePic)
                     for(let i=0; i<response.length; i++){
                         if(response[i].friendmessage === null){
                             if(response[i].friendusername !== username){
