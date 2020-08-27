@@ -103,6 +103,10 @@ class Message extends Component {
                     console.log(response)
                     if(response[i].sender !== username){response[i].sender = 'received'}
                     else if(response[i].sender === username){response[i].sender = 'sent'}
+                    if(response[i].message === null) {
+                        let tempMessage = <img src={response[i].picture} alt='message'/>;
+                        response[i].message = tempMessage;
+                    }
                     let ts = response[i].ts;
                     let tsCharArr = Array.from(ts);
                     let month = null;
@@ -231,8 +235,12 @@ class Message extends Component {
             testUri: picture.base64,
             sendPicButton: <i className="fas fa-spinner"></i>
         })
-        let testImageW = Math.floor((document.getElementById('testImage').width) / 6);
-        let testImageH = Math.floor((document.getElementById('testImage').height) / 6);
+        let testImageW = Math.floor(document.getElementById('testImage').width);
+        let testImageH = Math.floor(document.getElementById('testImage').height);
+        let targetW = 190;
+        let divisor = Math.floor(testImageW / targetW);
+        testImageW = testImageW / divisor;
+        testImageH = testImageH / divisor;
         console.log(testImageW, testImageH)
         picture.base64 = resizebase64(picture.base64, testImageW, testImageH)
         this.setState({ 
