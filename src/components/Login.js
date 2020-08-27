@@ -66,7 +66,7 @@ export default class Login extends Component {
                     <input type='text' name='username' onChange={this.changeHandler}></input>
                     <label htmlFor='password'>Password</label>
                     <input type='password' name='password' onChange={this.changeHandler}></input>
-                    <input type='submit' value='Login'></input>
+                    <input type='submit' value={this.state.buttonMessage}></input>
                 </form>
                 <p>{ this.state.errorMessage }</p>
             </div>

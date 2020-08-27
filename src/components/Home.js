@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './Home.css';
 import { Redirect } from 'react-router-dom';
+
 export default class Home extends Component {
     constructor(props) {
         super(props);
@@ -38,12 +39,30 @@ export default class Home extends Component {
             return <Redirect to='/user'/>
         }
         return (
-            <div>
-                <h1>Teratext</h1>
-                <a href='/login'><button>Login</button></a>
-                <a href='/signup'><button>Sign Up</button></a> 
-                <button id='demoButton' onClick={this.demoLogin}>Quick demo</button>   
-            </div>
+            <>
+                <div id='homeHeader'>
+                    <img id='lakeBkg' src='https://github.com/willwalker753/organizing-your-react-code/blob/master/lake-bkg.jpg?raw=true' alt='lake background'/>
+                    <img id='lakeOvr' src='https://github.com/willwalker753/organizing-your-react-code/blob/master/lake-overlay-min.png?raw=true' alt='lake overlay'/>
+                    <h1 id='homeTitle'>Teratext</h1>
+                </div>
+                <div id='homeDemoBox'>
+                    <p>Sign in with a demo account here to try out all the features!</p>
+                    <button id='demoButton' onClick={this.demoLogin}>Quick demo</button>
+                </div>
+                <div id='homeAbout'>
+                    <img id='homeAboutPic' src='https://github.com/willwalker753/organizing-your-react-code/blob/master/friend-campfire.jpg?raw=true' alt='friends campfire'/>
+                    <p>
+                        Teratext is a secure chat app with several key features.
+                        You can add your friends, send and receive texts realtime including pictures, and customize your account.
+                    </p>
+                </div>
+                <div id='homeButtonBox'>
+                    <a href='/login'><button id='homeLoginButton'>Login</button></a>
+                    <p>Let's go!</p>
+                    <a href='/signup'><button id='homeSignupButton'>Sign Up</button></a>     
+                </div>
+                <footer id='homeFooter'></footer>
+            </>
         )
     }
 }
