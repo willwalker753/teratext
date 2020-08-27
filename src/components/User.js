@@ -39,84 +39,120 @@ export default class User extends Component {
                     response = response.data;
                     for(let i=0; i<response.length; i++){
                         if(response[i].friendmessage === null){
-                            if(response[i].friendusername !== username){
+                            if(response[i].sender !== username){
                                 response[i].friendmessage =  response[i].friendusername + ' sent a picture';
                             }
                             else{
                                 response[i].friendmessage =  'You sent a picture';
-                            }
-                            
+                            }                           
                         }
-                        let timeStamp = response[i].friendts;
-                        let timeStampDay = timeStamp.substring(8, 10);
-                        let timeStampHour = timeStamp.substring(11, 13);
-                        let timeStampMin = timeStamp.substring(13, 16);
-                        let curDay = new Date().toString();
-                        curDay = curDay.substring(8,10);
-                        if(timeStampDay === curDay){
-                            let meridiem = 'AM';
-                            if(timeStampHour > '12'){
-                                meridiem = 'PM';
-                                timeStampHour = (timeStampHour - 12).toString();
+                        let ts = response[i].friendts.toString();
+                        let tsCharArr = Array.from(ts);
+                        let month = null;
+                        let day = null;
+                        let hour= null;
+                        let minute = null;
+                        let meridiem = null;
+                        let temp = '';
+                        for(let i=0; i<tsCharArr.length; i++){
+                            if(tsCharArr[i] === '/'){
+                                if(month === null){
+                                    month = temp;
+                                    temp = '';
+                                }
+                                else if(day === null){
+                                    day = temp;
+                                    temp = '';
+                                }
                             }
-                            else if(timeStampHour === '12'){
-                                meridiem = 'PM';
+                            else if((tsCharArr[i] === ' ')||(tsCharArr[i] === ',')){
+                                temp = '';
                             }
-                            else if(timeStampHour === '00'){
-                                timeStampHour = '12';
+                            else if(tsCharArr[i] === ':'){
+                                if(hour === null){
+                                    hour = temp;
+                                    temp = '';
+                                }
+                                else if(minute === null){
+                                    minute = temp;
+                                    temp = '';
+                                }
                             }
-                            else if((timeStampHour < '10')&&(timeStampHour > '00')){
-                                timeStampHour = timeStampHour.substring(1,2);
+                            else if(tsCharArr[i] === 'P'){
+                                meridiem = 'PM'
                             }
-                            response[i].friendts = timeStampHour + timeStampMin + ' ' + meridiem;
+                            else if(tsCharArr[i] === 'A'){
+                                meridiem = 'AM'
+                            }
+                            else {
+                                temp = temp + tsCharArr[i];
+                            }
                         }
-                        else if(timeStampDay !== curDay){
-                            let timeStampMonth = timeStamp.substring(5,7);
-                            timeStampMonth = parseInt(timeStampMonth, 10);
-                            switch(timeStampMonth){
-                                case 1: 
-                                    timeStampMonth = 'Jan';
-                                    break;
-                                case 2: 
-                                    timeStampMonth = 'Feb';
-                                    break;
-                                case 3: 
-                                    timeStampMonth = 'Mar';
-                                    break;
-                                case 4: 
-                                    timeStampMonth = 'Apr';
-                                    break;
-                                case 5: 
-                                    timeStampMonth = 'May';
-                                    break;
-                                case 6: 
-                                    timeStampMonth = 'Jun';
-                                    break;
-                                case 7: 
-                                    timeStampMonth = 'Jul';
-                                    break;
-                                case 8: 
-                                    timeStampMonth = 'Aug';
-                                    break;
-                                case 9: 
-                                    timeStampMonth = 'Sep';
-                                    break;
-                                case 10: 
-                                    timeStampMonth = 'Oct';
-                                    break;
-                                case 11: 
-                                    timeStampMonth = 'Nov';
-                                    break;
-                                case 12: 
-                                    timeStampMonth = 'Dec';
-                                    break;
-                                default:
-                                    break;
+                        let tsCur = new Date().toLocaleString("en-US", {timeZone: "America/Chicago"});
+                        let tsCurCharArr = Array.from(tsCur);
+                        let dayCur = '';
+                        let met = false;
+                        for(let i=0; i<6; i++){
+                            if(tsCurCharArr[i] === '/'){
+                                if(met === false){
+                                    met = true;
+                                }
+                                else if(met === true){
+                                    i = 6;
+                                }
                             }
-                            timeStampDay = parseInt(timeStampDay, 10);        
-                            response[i].friendts = timeStampMonth + ' ' + timeStampDay;
+                            else if(met === true){
+                                dayCur = dayCur + tsCurCharArr[i];
+                            }
                         }
-                        if(response[i].friendts === 'NaN NaN'){
+
+                        if(dayCur !== day) {
+                            switch(month){
+                                        case 1: 
+                                            month = 'Jan';
+                                            break;
+                                        case 2: 
+                                            month = 'Feb';
+                                            break;
+                                        case 3: 
+                                            month = 'Mar';
+                                            break;
+                                        case 4: 
+                                            month = 'Apr';
+                                            break;
+                                        case 5: 
+                                            month = 'May';
+                                            break;
+                                        case 6: 
+                                            month = 'Jun';
+                                            break;
+                                        case 7: 
+                                            month = 'Jul';
+                                            break;
+                                        case 8: 
+                                            month = 'Aug';
+                                            break;
+                                        case 9: 
+                                            month = 'Sep';
+                                            break;
+                                        case 10: 
+                                            month = 'Oct';
+                                            break;
+                                        case 11: 
+                                            month = 'Nov';
+                                            break;
+                                        case 12: 
+                                            month = 'Dec';
+                                            break;
+                                        default:
+                                            break;
+                            }
+                            response[i].friendts = month + day;
+                        }
+                        if(dayCur === day) {
+                            response[i].friendts = hour + ':' + minute + ' ' + meridiem;
+                        }
+                        if(response[i].friendmessage === 'No messages yet'){
                             response[i].friendts = '';
                         }
                     }

@@ -15,6 +15,8 @@ class Message extends Component {
             userId: '',
             friendId: null,
             friendUsername: '',
+            sendButton: <i className="fas fa-paper-plane"></i>,
+            sendPicButton: <i className="fas fa-camera"></i>,
             messageArr: [],
             text: '',
             picture: [],
@@ -32,6 +34,7 @@ class Message extends Component {
         e.preventDefault();
         e.target.value = '';
         if(this.state.text === ''){return}
+        this.setState({ sendButton: <i className="fas fa-spinner"></i> })
         console.log(this.state.text)
         let url = 'https://tera-text-api.herokuapp.com/message/send';
         axios.post(url ,this.state)
@@ -91,6 +94,7 @@ class Message extends Component {
         await axios.post(url , body)
         .then(response => {
             if(response.status === 200){
+                this.setState({ sendButton: <i className="fas fa-spinner"></i> })
                 response = response.data.rows;
                 for(let i=0; i<response.length; i++){
                     this.setState({
@@ -99,92 +103,111 @@ class Message extends Component {
                     console.log(response)
                     if(response[i].sender !== username){response[i].sender = 'received'}
                     else if(response[i].sender === username){response[i].sender = 'sent'}
-                    let timeStamp = response[i].ts;
-                    let timeStampDay = timeStamp.substring(8, 10);
-                    let timeStampHour = timeStamp.substring(11, 13);
-                    let timeStampMin = timeStamp.substring(13, 16);
-                    let curDay = new Date().toString();
-                    curDay = curDay.substring(8,10);
-                    if(response[i].message === null) {
-                        let tempMessage = <img src={response[i].picture} alt='message'/>;
-                        response[i].message = tempMessage;
+                    let ts = response[i].ts;
+                    let tsCharArr = Array.from(ts);
+                    let month = null;
+                    let day = null;
+                    let hour= null;
+                    let minute = null;
+                    let meridiem = null;
+                    let temp = '';
+                    for(let i=0; i<tsCharArr.length; i++){
+                        if(tsCharArr[i] === '/'){
+                            if(month === null){
+                                month = temp;
+                                temp = '';
+                            }
+                            else if(day === null){
+                                day = temp;
+                                temp = '';
+                            }
+                        }
+                        else if((tsCharArr[i] === ' ')||(tsCharArr[i] === ',')){
+                            temp = '';
+                        }
+                        else if(tsCharArr[i] === ':'){
+                            if(hour === null){
+                                hour = temp;
+                                temp = '';
+                            }
+                            else if(minute === null){
+                                minute = temp;
+                                temp = '';
+                            }
+                        }
+                        else if(tsCharArr[i] === 'P'){
+                            meridiem = 'PM'
+                        }
+                        else if(tsCharArr[i] === 'A'){
+                            meridiem = 'AM'
+                        }
+                        else {
+                            temp = temp + tsCharArr[i];
+                        }
                     }
-                    if(timeStampDay === curDay){
-                        let meridiem = 'AM';
-                        if(timeStampHour > '12'){
-                            meridiem = 'PM';
-                            timeStampHour = (timeStampHour - 12).toString();
+                    let tsCur = new Date().toLocaleString("en-US", {timeZone: "America/Chicago"});
+                    let tsCurCharArr = Array.from(tsCur);
+                    let dayCur = '';
+                    let met = false;
+                    for(let i=0; i<6; i++){
+                        if(tsCurCharArr[i] === '/'){
+                            if(met === false){
+                                met = true;
+                            }
+                            else if(met === true){
+                                i = 6;
+                            }
                         }
-                        else if(timeStampHour === '12'){
-                            meridiem = 'PM';
+                        else if(met === true){
+                            dayCur = dayCur + tsCurCharArr[i];
                         }
-                        else if(timeStampHour === '00'){
-                            timeStampHour = '12';
-                        }
-                        else if((timeStampHour < '10')&&(timeStampHour > '00')){
-                            timeStampHour = timeStampHour.substring(1,2);
-                        }
-                        response[i].ts = timeStampHour + timeStampMin + ' ' + meridiem;
                     }
-                    else if(timeStampDay !== curDay){
-                        let meridiem = 'AM';
-                        if(timeStampHour > '12'){
-                            meridiem = 'PM';
-                            timeStampHour = (timeStampHour - 12).toString();
+
+                    if(dayCur !== day) {
+                        switch(month){
+                                    case 1: 
+                                        month = 'Jan';
+                                        break;
+                                    case 2: 
+                                        month = 'Feb';
+                                        break;
+                                    case 3: 
+                                        month = 'Mar';
+                                        break;
+                                    case 4: 
+                                        month = 'Apr';
+                                        break;
+                                    case 5: 
+                                        month = 'May';
+                                        break;
+                                    case 6: 
+                                        month = 'Jun';
+                                        break;
+                                    case 7: 
+                                        month = 'Jul';
+                                        break;
+                                    case 8: 
+                                        month = 'Aug';
+                                        break;
+                                    case 9: 
+                                        month = 'Sep';
+                                        break;
+                                    case 10: 
+                                        month = 'Oct';
+                                        break;
+                                    case 11: 
+                                        month = 'Nov';
+                                        break;
+                                    case 12: 
+                                        month = 'Dec';
+                                        break;
+                                    default:
+                                        break;
                         }
-                        else if(timeStampHour === '12'){
-                            meridiem = 'PM';
-                        }
-                        else if(timeStampHour === '00'){
-                            timeStampHour = '12';
-                        }
-                        else if((timeStampHour < '10')&&(timeStampHour > '00')){
-                            timeStampHour = timeStampHour.substring(1,2);
-                        }
-                        let timeStampMonth = timeStamp.substring(5,7);
-                        timeStampMonth = parseInt(timeStampMonth, 10);
-                        switch(timeStampMonth){
-                            case 1: 
-                                timeStampMonth = 'Jan';
-                                break;
-                            case 2: 
-                                timeStampMonth = 'Feb';
-                                break;
-                            case 3: 
-                                timeStampMonth = 'Mar';
-                                break;
-                            case 4: 
-                                timeStampMonth = 'Apr';
-                                break;
-                            case 5: 
-                                timeStampMonth = 'May';
-                                break;
-                            case 6: 
-                                timeStampMonth = 'Jun';
-                                break;
-                            case 7: 
-                                timeStampMonth = 'Jul';
-                                break;
-                            case 8: 
-                                timeStampMonth = 'Aug';
-                                break;
-                            case 9: 
-                                timeStampMonth = 'Sep';
-                                break;
-                            case 10: 
-                                timeStampMonth = 'Oct';
-                                break;
-                            case 11: 
-                                timeStampMonth = 'Nov';
-                                break;
-                            case 12: 
-                                timeStampMonth = 'Dec';
-                                break;
-                            default:
-                                break;
-                        }
-                        timeStampDay = parseInt(timeStampDay, 10);        
-                        response[i].ts = timeStampHour + timeStampMin + ' ' + meridiem + ' ' + timeStampMonth + ' ' + timeStampDay;
+                        response[i].ts = month + day;
+                    }
+                    if(dayCur === day) {
+                        response[i].ts = hour + ':' + minute + ' ' + meridiem;
                     }
                     if(response[i].ts === 'NaN NaN'){
                         response[i].ts = '';
@@ -200,14 +223,16 @@ class Message extends Component {
                 errorMessage: 'Unable to find your messages',
             })
         })
+        this.setState({ sendButton: <i className="fas fa-paper-plane"></i> })
     }
     async getFiles(picture){
         await this.setState({
             testRender: true,
-            testUri: picture.base64
+            testUri: picture.base64,
+            sendPicButton: <i className="fas fa-spinner"></i>
         })
-        let testImageW = Math.floor((document.getElementById('testImage').width) / 4);
-        let testImageH = Math.floor((document.getElementById('testImage').height) / 4);
+        let testImageW = Math.floor((document.getElementById('testImage').width) / 6);
+        let testImageH = Math.floor((document.getElementById('testImage').height) / 6);
         console.log(testImageW, testImageH)
         picture.base64 = resizebase64(picture.base64, testImageW, testImageH)
         this.setState({ 
@@ -227,6 +252,7 @@ class Message extends Component {
                 errorMessage: 'Unable to send your message',
             })
         })
+        this.setState({ sendPicButton: <i className="fas fa-camera"></i> })
     }
 
     render() {
@@ -252,12 +278,12 @@ class Message extends Component {
                 </div>
                 <div id='messageForm'>
                     <form id='textForm' onSubmit={ this.submitHandler }>
-                        <input type="text" id='textFormText' name='text' value={this.state.text} onChange={ this.changeHandler }></input>
-                        <button type="submit"><i className="fas fa-paper-plane"></i></button>
+                        <input type="text" id='textFormText' name='text' value={this.state.text} onChange={this.changeHandler}></input>
+                        <button type="submit">{this.state.sendButton}</button>
                     </form>
                     <form id='pictureMessageForm'>  
                         <button id='pictureMessageInput'>
-                        <i className="fas fa-camera"></i>
+                        {this.state.sendPicButton}
                             <FileBase64
                             multiple={ false }
                             onDone={ this.getFiles.bind(this) }   
