@@ -8,9 +8,11 @@ export default function Nav(props) {
         window.location.replace('/');
     }
     function hamburgerMenuOut() {
+        document.getElementById('navBox').className='fadeOutNav';
         document.getElementById('hamburgerMenu').className='hamburgerAnimateOut';
     }
     function hamburgerMenuIn() {
+        document.getElementById('navBox').className='fadeInNav';
         document.getElementById('hamburgerMenu').className='hamburgerAnimateIn';
     }
     if(props.page === 'User') {
@@ -29,9 +31,10 @@ export default function Nav(props) {
                     <button onClick={logoutHandler}>Logout</button>
                 </ul>
             </div>
-            <nav className='navBox'>
+            <nav id='navBox'>
                 <button id='hamburgerButton' onClick={hamburgerMenuOut}><i className="fas fa-bars"></i></button>
                 <p className='friendNavText'>{props.username}'s Messages</p>
+                <div></div>
             </nav>
         </>
         
@@ -51,7 +54,7 @@ export default function Nav(props) {
                     <button onClick={logoutHandler}>Logout</button>
                 </ul>
             </div>
-            <nav className='navBox'>
+            <nav id='navBox'>
                 <button id='hamburgerButton' onClick={hamburgerMenuOut}><i className="fas fa-bars"></i></button>
                 <div id='navFriendPicName'>
                     <p className='welcomeText'>{props.friendUsername}</p>
@@ -76,7 +79,7 @@ export default function Nav(props) {
                         <button onClick={logoutHandler}>Logout</button>
                     </ul>
                 </div>
-                <nav className='navBox'>
+                <nav id='navBox'>
                     <button id='hamburgerButton' onClick={hamburgerMenuOut}><i className="fas fa-bars"></i></button>
                     <p className='friendNavText'>{props.username}'s Friends</p>
                 </nav>
@@ -98,7 +101,7 @@ export default function Nav(props) {
                         <button onClick={logoutHandler}>Logout</button>
                     </ul>
                 </div>
-                <nav className='navBox'>
+                <nav id='navBox'>
                     <button id='hamburgerButton' onClick={hamburgerMenuOut}><i className="fas fa-bars"></i></button>
                     <p className='friendNavText'>{props.username}'s Account</p>
                 </nav>

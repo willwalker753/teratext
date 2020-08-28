@@ -6,11 +6,16 @@ import { Redirect } from 'react-router-dom';
 export default class Home extends Component {
     constructor(props) {
         super(props);
-        this.state = {demoLogin: false};
+        this.state = {
+            demoLogin: false,
+            quickDemoText: 'Quick demo'
+        };
         this.demoLogin = this.demoLogin.bind(this)
       }
     async demoLogin() {
-        //console.log(e.target.id);
+        this.setState({
+            quickDemoText: <i className="fas fa-spinner"></i>
+        })
         const reqBody = {
             "username": "dog",
             "password": "d"
@@ -47,7 +52,7 @@ export default class Home extends Component {
                 </div>
                 <div id='homeDemoBox'>
                     <p>Sign in with a demo account here to try out all the features!</p>
-                    <button id='demoButton' onClick={this.demoLogin}>Quick demo</button>
+                    <button id='demoButton' onClick={this.demoLogin}>{this.state.quickDemoText}</button>
                 </div>
                 <div id='homeAbout'>
                     <img id='homeAboutPic' src='https://github.com/willwalker753/organizing-your-react-code/blob/master/friend-campfire.jpg?raw=true' alt='friends campfire'/>

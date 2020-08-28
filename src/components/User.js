@@ -15,6 +15,7 @@ export default class User extends Component {
             friendId: [],
             friendMessage: [],
             friendTs: [],
+            addFriendText: '',
             loggedIn: true
         }
     }  
@@ -158,15 +159,32 @@ export default class User extends Component {
                         }
                     }
                     this.setState({
-                        friendArr: response
+                        friendArr: response,
+                        addFriendText: 'Add a new friend here'
                     })
                 }
             })
             .catch(error => {
                 this.setState({
-                    errorMessage: 'Unable to retrieve friends list',
+                    addFriendText: 'Unable to retrieve friends list',
                 })
             })
+        }
+    }
+    contactHoverOn = e => {
+        try {
+            document.getElementById(e.target.id).className='enter contactUserBox';
+        }
+        catch {
+            return;
+        }
+    }
+    contactHoverOff = e => {
+        try {
+            document.getElementById(e.target.id).className='leave contactUserBox';
+        }
+        catch {
+            return;
         }
     }
     render() {
@@ -180,11 +198,11 @@ export default class User extends Component {
                     <div id='userSpaceTop'></div>
                     {this.state.friendArr.map((friend, index) => (
                         <a key={index} href={'/user/message/'+friend.friendid+'/'+friend.friendusername} className='contactMessageLink'>
-                            <div className='contactUserBox'>
+                            <div id={'contactUserBox'+index} className='contactUserBox' onMouseEnter={this.contactHoverOn} onMouseLeave={this.contactHoverOff}>
                                 <div className='contactUserBoxLeft'>
                                     <img src={friend.friendProfilePic} alt='friend profile'></img>
                                 </div>
-                                <div className='contactUserBoxRight'>
+                                <div id={'contactUserBox'+index} className='contactUserBoxRight'>
                                     <p className='contactMessageName'>{friend.friendusername}</p>
                                     <ul className='contactMessagePreview'>
                                         <li className='contactMessageText'>{friend.friendmessage}</li>
@@ -194,7 +212,7 @@ export default class User extends Component {
                             </div>
                         </a>
                     ))}
-                    <p><a href='/user/friend'>Add a new friend here</a></p>
+                    <p id='userAddFriendHereBox'><a id='userAddFriendHere' href='/user/friend'>{this.state.addFriendText}</a></p>
                 </div>
             </div>
         )

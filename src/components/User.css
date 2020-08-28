@@ -1,5 +1,5 @@
 #userSpaceTop {
-    height: 50px;
+    height: 60px;
 }
 .contactMessageLink {
     text-decoration: none;
@@ -11,10 +11,12 @@
     margin-left: auto;
     margin-right: auto;
     width: 90%;
-    background-color: beige;
+    background-color: rgb(214, 214, 214);
+    border-radius: 8px;
     padding-left: 15px;
     padding-right: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
 }
 .contactUserBoxLeft img {
     height: 60px;
@@ -32,6 +34,8 @@
     list-style: none;
     display: flex;
     justify-content: space-between;
+    margin-top: 12px;
+    margin-bottom: 20px;
 }
 .contactMessagePreview li {
     padding-right: 10px;
@@ -45,7 +49,39 @@
 .contactMessageTime {
     width: 80px;
 }
+.contactMessageName {
+    text-transform: capitalize;
+    margin-top: 18px;
+    margin-bottom: 12px;
+    font-size: 17px;
+}
 .contactMessageName, .contactMessageText, .contactMessageTime {
     color: black;
     text-decoration: none;
+}
+#userAddFriendHereBox { 
+    margin-top: 20px;
+    text-align: center;
+}
+#userAddFriendHere {
+    text-decoration: none;
+    color:black;
+    cursor: pointer;
+}
+#userAddFriendHere:hover {
+    color: rgb(0, 3, 165);
+}
+.enter {
+    animation: enter .35s 1 forwards;
+}
+@keyframes enter {
+    0%{background-color: rgb(214, 214, 214);}
+    100%{background-color: rgb(189, 189, 189);}
+}
+.leave {
+    animation: leave .35s forwards;
+}
+@keyframes leave {
+    0%{background-color: rgb(189, 189, 189);}
+    100%{background-color: rgb(214, 214, 214);}
 }

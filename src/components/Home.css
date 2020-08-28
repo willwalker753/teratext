@@ -46,12 +46,15 @@
     background-color: rgb(55, 91, 175);
     color: white;
     display: flex;
+    justify-content: space-between;
     z-index: 4;
     height: 60px;
 }
 #homeDemoBox > p {
     margin: 0px;
     padding: 10px;
+    margin-left: 3%;
+    max-width: 290px;
 }
 #homeDemoBox > button {
     border-radius: 8px 0px 0px 8px;
@@ -62,6 +65,7 @@
     font-weight: 600;
     font-size: 15px;
     height: 60px; 
+    width: 67px;
 }
 #homeAbout {
     height: 250px;
@@ -128,4 +132,13 @@ button:focus {
 #homeLoginButton:hover, #homeSignupButton:hover, #demoButton:hover {
     background-color: rgb(223, 223, 223);
     cursor: pointer;
+}
+#demoButton > i {
+    font-size: 20px;
+    animation: spinner 1.3s infinite forwards;
+}
+@keyframes spinner {
+    0%{transform: rotate(0deg);}
+    80% {transform: rotate(430deg);}
+    100%{transform: rotate(360deg);}
 }

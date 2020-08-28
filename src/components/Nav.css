@@ -1,10 +1,29 @@
-.navBox {
+#navBox {
     position: fixed;
     top: 0px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     height: 40px;
     width: 100%;
+    background-color: rgb(216, 216, 216);
+}
+#navBox > div {
+    width: 38px;
+}
+.fadeOutNav {
+    animation: fadeOutNav .5s .2s 1 forwards;
+}
+@keyframes fadeOutNav {
+    0%{opacity: 1;}
+    100%{opacity: 0;}
+}
+.fadeInNav {
+    animation: fadeInNav .7s 1 forwards;
+}
+@keyframes fadeInNav {
+    0%{opacity: 0;}
+    100%{opacity: 1;}
 }
 .navList {
     list-style: none;
@@ -16,19 +35,36 @@
     margin: 0px;
     width: 40vw;
     height: 100vh;
-    background-color: rgb(216, 216, 216);
+    background-color: rgb(95, 95, 95);
+    color: white;
+    border-radius: 0px 8px 8px 0px;
+}
+#navTeratext > a, .navList > li > a{
+    text-decoration: none;
+    color: white;
+}
+#navTeratext > a:hover, .navList > li > a:hover, .navList > button:hover {
+    color: rgb(0, 2, 110);
+    cursor: pointer;
 }
 .navList > button, .navList > p, .navList > li {
     margin-top: 15px;
     margin-bottom: 15px;
     margin-left: 10px;
 }
+.navList > button {
+    background-color: rgb(95, 95, 95);
+    border: none;
+    color: white;
+    font-size: 16px;
+    padding: 0px;
+}
 .welcomeText {
     text-transform: capitalize;
 }
 .friendNavText {
+    margin: 0px;
     text-transform: capitalize;
-    margin-right: 38%;
 }
 #navFriendPicName {
     display: flex;
@@ -56,12 +92,21 @@
     margin-left: 10px;
 }
 #hamburgerButtonOnMenu {
-    
+    font-size: 20px;
     margin-right: 10px;
-    
+    background-color: rgb(95, 95, 95);
+    border:none;
+    cursor: pointer;
+}
+#hamburgerButtonOnMenu:hover {
+    color: rgb(168, 0, 0)
 }
 #hamburgerButton {
     margin: 10px;
+    font-size: 19px;
+    background-color: rgb(216, 216, 216);
+    border:none;
+    cursor: pointer;
 }
 #hamburgerMenu { 
     position: fixed;
@@ -83,11 +128,9 @@
 .hamburgerAnimateOut {
     position: relative;
     right: 60vw;
-    animation-name: hamburgerSlideOut;
-    animation-duration: 70s;
+    animation: hamburgerSlide .7s 1 forwards;
 }
-@keyframes hamburgerSlideOut {
+@keyframes hamburgerSlide {
     0% {right: 100vw;}
-    1% {right: 60vw;}
     100% {right: 60vw;}
 }
