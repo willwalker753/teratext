@@ -35,7 +35,6 @@ class Message extends Component {
         e.target.value = '';
         if(this.state.text === ''){return}
         this.setState({ sendButton: <i className="fas fa-spinner"></i> })
-        console.log(this.state.text)
         let url = 'https://tera-text-api.herokuapp.com/message/send';
         axios.post(url ,this.state)
         .then(response => {
@@ -73,7 +72,6 @@ class Message extends Component {
             await axios.post(url ,this.state)
             .then(response => {
                 if(response.status === 200){
-                    console.log(response)
                     this.setState({
                         friendProfilePic: response.data.profilepic
                     });
@@ -100,7 +98,6 @@ class Message extends Component {
                     this.setState({
                         numOfMessages: response.length
                     })
-                    console.log(response)
                     if(response[i].sender !== username){response[i].sender = 'received'}
                     else if(response[i].sender === username){response[i].sender = 'sent'}
                     if(response[i].message === null) {
@@ -152,6 +149,7 @@ class Message extends Component {
                     let tsCur = new Date().toLocaleString("en-US", {timeZone: "America/Chicago"});
                     let tsCurCharArr = Array.from(tsCur);
                     let dayCur = '';
+                    
                     let met = false;
                     for(let i=0; i<6; i++){
                         if(tsCurCharArr[i] === '/'){
@@ -166,8 +164,8 @@ class Message extends Component {
                             dayCur = dayCur + tsCurCharArr[i];
                         }
                     }
-
                     if(dayCur !== day) {
+                        month = parseInt(month);
                         switch(month){
                                     case 1: 
                                         month = 'Jan';
@@ -208,7 +206,7 @@ class Message extends Component {
                                     default:
                                         break;
                         }
-                        response[i].ts = month + day;
+                        response[i].ts = month + ' ' + day + ' ' +hour + ':' + minute + ' ' + meridiem;
                     }
                     if(dayCur === day) {
                         response[i].ts = hour + ':' + minute + ' ' + meridiem;
@@ -241,7 +239,6 @@ class Message extends Component {
         let divisor = Math.floor(testImageW / targetW);
         testImageW = testImageW / divisor;
         testImageH = testImageH / divisor;
-        console.log(testImageW, testImageH)
         picture.base64 = resizebase64(picture.base64, testImageW, testImageH)
         this.setState({ 
             picture: picture,
