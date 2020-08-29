@@ -24,10 +24,10 @@ export default class Home extends Component {
         await axios.post(url, reqBody)
         .then(response => {
             if(response.status === 200){
-                window.sessionStorage.clear();
-                window.sessionStorage.setItem('loggedIn', true);
-                window.sessionStorage.setItem('username', response.data[0].username);
-                window.sessionStorage.setItem('userID', response.data[0].id);
+                window.localStorage.clear();
+                window.localStorage.setItem('loggedIn', true);
+                window.localStorage.setItem('username', response.data[0].username);
+                window.localStorage.setItem('userID', response.data[0].id);
                 this.setState({
                     demoLogin: true
                 });
@@ -38,6 +38,14 @@ export default class Home extends Component {
                 errorMessageCode: 'Trouble connecting to server',
             })
         })
+    }
+    componentDidMount() {
+        let loggedIn = window.localStorage.getItem('loggedIn');
+        if(loggedIn) {
+            this.setState({
+                demoLogin: true
+            })
+        }       
     }
     render() {
         if(this.state.demoLogin){
@@ -56,10 +64,14 @@ export default class Home extends Component {
                 </div>
                 <div id='homeAbout'>
                     <img id='homeAboutPic' src='https://github.com/willwalker753/organizing-your-react-code/blob/master/friend-campfire.jpg?raw=true' alt='friends campfire'/>
-                    <p>
-                        Teratext is a secure chat app with several key features.
-                        You can add your friends, send and receive texts realtime including pictures, and customize your account.
+                    <p id='homeAbout1'>
+                        Teratext is a secure new chat app for you and your friends. 
                     </p>
+                    <img id='homeAboutPic2' src='https://github.com/willwalker753/organizing-your-react-code/blob/master/phone.jpg?raw=true' alt='phone'/>
+                    <p id='homeAbout2'>
+                    You can add your friends, send and receive texts realtime including pictures, customize your profile picture, and much more.
+                    </p>
+                    
                 </div>
                 <div id='homeButtonBox'>
                     <a href='/login'><button id='homeLoginButton'>Login</button></a>

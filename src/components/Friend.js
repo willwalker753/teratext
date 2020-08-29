@@ -30,19 +30,19 @@ export default class Friend extends Component {
     submitCodeHandler = e => {
         e.preventDefault();
         this.setState({ 
-            buttonMessageCode: 'Loading...',
+            buttonMessageCode: <i id='loadingSpinnerFriend' className="fas fa-spinner"></i>,
             errorMessageCode: ''
         })
         if(this.state.friendCode === '') {
             this.setState({
                 errorMessageCode: 'Please enter a code',
-                buttonMessageCode: '+'
+                buttonMessageCode: <i className="fas fa-user-plus"></i>
             })
         }
         else if(this.state.friendCode === this.state.userId) {
             this.setState({
                 errorMessageCode: "Nope you can't friend yourself",
-                buttonMessageCode: '+'
+                buttonMessageCode: <i className="fas fa-user-plus"></i>
             })
         }
         else{
@@ -76,7 +76,7 @@ export default class Friend extends Component {
     submitUsernameHandler = e => {
         e.preventDefault();
         this.setState({ 
-            buttonMessageUsername: 'Loading...',
+            buttonMessageUsername: <i id='loadingSpinnerFriend' className="fas fa-spinner"></i>,
             errorMessageUsername: ''
         })
         if((this.state.friendUsername === '')) {
@@ -164,15 +164,15 @@ export default class Friend extends Component {
     }
     
     async componentDidMount() {
-        let loggedIn = window.sessionStorage.getItem('loggedIn');
-        let userId = window.sessionStorage.getItem('userID');
+        let loggedIn = window.localStorage.getItem('loggedIn');
+        let userId = window.localStorage.getItem('userID');
         if (!loggedIn) {
             this.setState({
                 loggedIn: false
             });
         }
         else {
-            let username = window.sessionStorage.getItem('username');
+            let username = window.localStorage.getItem('username');
             //pause here till username is ready to send
             await this.setState({
                 username: username,
@@ -239,24 +239,27 @@ export default class Friend extends Component {
         return (
             <div>
                 <Nav page={'Friend'} username={ this.state.username }/>
+                
                 <p id='friendUsernameCodeInfo'>Your username and friend code are <strong>{ this.state.username }</strong> and <strong>{ this.state.userId }</strong></p>
-                <p>Add a friend by their username or code</p>
-                <div id='friendFormsBox'>
+                <div id='friendFormBox'>
                     <div>
-                    <form onSubmit={ this.submitUsernameHandler }>
-                        <input name='friendUsername' placeholder='username' onChange={ this.changeHandler }/>
-                        <button type='submit'>{this.state.buttonMessageUsername}</button>
-                    </form>
-                    <p id='friendUsernameErr'>{ this.state.errorMessageUsername }</p>
-                    </div><div>
-                    <form onSubmit={ this.submitCodeHandler }>
-                        <input type='number' name='friendCode' placeholder='code' onChange={ this.changeHandler }/>
-                        <button type='submit'>{this.state.buttonMessageCode}</button>
-                    </form>
-                    <p id='friendCodeErr'>{ this.state.errorMessageCode }</p>
+                        <p id='addAFriendByUsername'>Add a friend by their username or code</p>
+                    </div>
+                    
+                    <div>
+                        <form id='friendUsernameForm' onSubmit={ this.submitUsernameHandler }>
+                            <input name='friendUsername' placeholder='username' onChange={ this.changeHandler }/>
+                            <button type='submit'>{this.state.buttonMessageUsername}</button>
+                        </form>
+                        <p id='friendUsernameErr'>{ this.state.errorMessageUsername }</p>
+
+                        <form id='friendIdForm' onSubmit={ this.submitCodeHandler }>
+                            <input type='number' name='friendCode' placeholder='code' onChange={ this.changeHandler }/>
+                            <button type='submit'>{this.state.buttonMessageCode}</button>
+                        </form>
+                        <p id='friendCodeErr'>{ this.state.errorMessageCode }</p>
                     </div>
                 </div>
-                
                 {this.state.friendArr.map((friend, index) => (
                     
                     <div key={index} onClick={this.handleFriendClick}className='contactUserBox'>

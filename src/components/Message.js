@@ -6,7 +6,7 @@ import axios from 'axios';
 import resizebase64 from 'resize-base64';
 import './Message.css';
 
-let username = window.sessionStorage.getItem('username');
+let username = window.localStorage.getItem('username');
 class Message extends Component {
     constructor(props) {
         super(props)  
@@ -52,14 +52,14 @@ class Message extends Component {
         })
     }
     async componentDidMount() {
-        let loggedIn = window.sessionStorage.getItem('loggedIn');
+        let loggedIn = await window.localStorage.getItem('loggedIn');
         if (!loggedIn) {
             this.setState({
                 loggedIn: false
             });
         }
         else {
-            let userId = window.sessionStorage.getItem('userID');
+            let userId = window.localStorage.getItem('userID');
             let friendId = this.props.match.params.friendId;
             let friendUsername = this.props.match.params.friendUsername; 
             await this.setState({

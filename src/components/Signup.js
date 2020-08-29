@@ -48,9 +48,9 @@ export default class Signup extends Component {
                     })
                 }
                 else if(response.status === 200){
-                    window.sessionStorage.setItem('loggedIn', true)
-                    window.sessionStorage.setItem('username', response.data[0].username)
-                    window.sessionStorage.setItem('userID', response.data[0].id)
+                    window.localStorage.setItem('loggedIn', true)
+                    window.localStorage.setItem('username', response.data[0].username)
+                    window.localStorage.setItem('userID', response.data[0].id)
                     this.setState({ redirect: true })
                 }
             })

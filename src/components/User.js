@@ -20,15 +20,15 @@ export default class User extends Component {
         }
     }  
     async componentDidMount() {
-        let loggedIn = window.sessionStorage.getItem('loggedIn');
+        let loggedIn = window.localStorage.getItem('loggedIn');
         if (!loggedIn) {
             this.setState({
                 loggedIn: false
             });
         }
         else {
-            let username = window.sessionStorage.getItem('username');
-            let userId = window.sessionStorage.getItem('userID');
+            let username = window.localStorage.getItem('username');
+            let userId = window.localStorage.getItem('userID');
             await this.setState({
                 username: username,
                 userId: userId

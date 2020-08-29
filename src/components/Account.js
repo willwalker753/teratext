@@ -20,19 +20,19 @@ export default class Account extends Component {
         this.deleteAccount = this.deleteAccount.bind(this)
     }  
     logoutHandler = e => {
-        window.sessionStorage.clear();
+        window.localStorage.clear();
         window.location.replace('/');
     }
     async componentDidMount() {
-        let loggedIn = window.sessionStorage.getItem('loggedIn');
+        let loggedIn = window.localStorage.getItem('loggedIn');
         if (!loggedIn) {
             this.setState({
                 loggedIn: false
             });
         }
         else {
-            let username = window.sessionStorage.getItem('username');
-            let userId = window.sessionStorage.getItem('userID');
+            let username = window.localStorage.getItem('username');
+            let userId = window.localStorage.getItem('userID');
             await this.setState({
                 username: username,
                 userId: userId

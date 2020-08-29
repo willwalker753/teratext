@@ -4,7 +4,7 @@ import './Nav.css'
 
 export default function Nav(props) {
     function logoutHandler() {
-        window.sessionStorage.clear();
+        window.localStorage.clear();
         window.location.replace('/');
     }
     function hamburgerMenuOut() {
