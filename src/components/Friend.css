@@ -1,9 +1,54 @@
 #friendUsernameCodeInfo {
     margin-top: 60px;
 }
+.friendUserBoxRight {
+    width: 60%;
+}
+.friendUserBoxLeft img {
+    height: 70px;
+    width: 70px;
+    object-fit: cover;
+    border-radius: 35px;
+    margin-left: 10px;
+}
 .deleteFriendBox {
     padding-left: 0px;
+    margin-top: 0px;
+    margin-bottom: 20px;
 }
 .deleteFriendBox > li {
     margin-bottom: 8px;
+}
+.deleteFriendBox > li > button {
+    border-radius: 6px;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+
+}
+.buttonOn {
+    animation: buttonOn .5s 1 forwards;
+}
+@keyframes buttonOn {
+    0%{
+        background-color: #EFEFEF;
+        color: black;
+    }
+    100%{
+        background-color: rgb(55, 133, 223);
+        color: white;
+    }
+}
+.buttonOff {
+    animation: buttonOff .5s 1 forwards;
+}
+@keyframes buttonOff {
+    0%{
+        background-color: rgb(55, 133, 223);
+        color: white;
+    }
+    100%{
+        background-color: #EFEFEF;
+        color: black;
+    }
 }

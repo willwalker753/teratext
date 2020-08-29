@@ -14,11 +14,13 @@ export default class Friend extends Component {
             friendArr: [],
             friendUsername: '',
             friendCode: '',
-            buttonMessageCode: '+',
-            buttonMessageUsername: '+',
+            buttonMessageCode: <i className="fas fa-user-plus"></i>,
+            buttonMessageUsername: <i className="fas fa-user-plus"></i>,
             errorMessageCode: '',
             nofriends: '',
             usernameToRemove: '',
+            messageLink: '',
+            messageLinkClicked: false,
             loggedIn: true
         }
     }
@@ -52,13 +54,13 @@ export default class Friend extends Component {
                     if(response.data === 'Account not found'){
                         this.setState({
                             errorMessageCode: 'Incorrect code',
-                            buttonMessageCode: '+'
+                            buttonMessageCode: <i className="fas fa-user-plus"></i>
                         })
                     }
                     else if(response.data[0].id){
                         this.setState({
                             errorMessageCode: '',
-                            buttonMessageCode: '+'
+                            buttonMessageCode: <i className="fas fa-user-plus"></i>
                         })
                         window.location.reload();
                     }
@@ -80,13 +82,13 @@ export default class Friend extends Component {
         if((this.state.friendUsername === '')) {
             this.setState({
                 errorMessageUsername: 'Please enter a username',
-                buttonMessageUsername: '+'
+                buttonMessageUsername: <i className="fas fa-user-plus"></i>
             })
         }
         else if(this.state.friendUsername === this.state.username) {
             this.setState({
                 errorMessageUsername: "Nope you can't friend yourself",
-                buttonMessageUsername: '+'
+                buttonMessageUsername: <i className="fas fa-user-plus"></i>
             })
         }
         else{
@@ -98,13 +100,13 @@ export default class Friend extends Component {
                     if(response.data === 'Account not found'){
                         this.setState({
                             errorMessageUsername: 'Incorrect friend username',
-                            buttonMessageUsername: '+'
+                            buttonMessageUsername: <i className="fas fa-user-plus"></i>
                         })
                     }
                     else if(response.data[0].id){
                         this.setState({
                             errorMessageUsername: '',
-                            buttonMessageUsername: '+'
+                            buttonMessageUsername: <i className="fas fa-user-plus"></i>
                         })
                         window.location.reload();
                     }
@@ -117,10 +119,15 @@ export default class Friend extends Component {
             })
         }
     }
+    idToUsernameConverter = id => {
+        return id.substring(0, id.length -7);
+    }
     removeFriend = async e => {
-        console.log(e.target.id);
+        e.stopPropagation();
+        let usernameToRemove = this.idToUsernameConverter(e.target.id)
+        console.log(usernameToRemove)
         await this.setState({
-            usernameToRemove: e.target.id
+            usernameToRemove: usernameToRemove
         })
         let url = 'https://tera-text-api.herokuapp.com/friend/removefriend';
         await axios.post(url ,this.state)
@@ -137,9 +144,10 @@ export default class Friend extends Component {
         window.location.reload();
     }
     deleteConversation = async e => {
-        console.log(e.target.id);
+        e.stopPropagation();
+        let usernameToRemove = this.idToUsernameConverter(e.target.id)
         await this.setState({
-            usernameToRemove: e.target.id
+            usernameToRemove: usernameToRemove
         })
         let url = 'https://tera-text-api.herokuapp.com/friend/deleteconversation';
         await axios.post(url ,this.state)
@@ -154,6 +162,7 @@ export default class Friend extends Component {
             })
         })
     }
+    
     async componentDidMount() {
         let loggedIn = window.sessionStorage.getItem('loggedIn');
         let userId = window.sessionStorage.getItem('userID');
@@ -176,6 +185,7 @@ export default class Friend extends Component {
                     let res = response.data;
                     for(let i=0; i<res.length; i++){
                         friendArr[i] = res[i];
+                        friendArr[i].messageLink = '/user/message/'+ res[i].friendid +'/'+ res[i].friendusername;
                     }
                     this.setState({
                         friendArr: friendArr
@@ -194,39 +204,70 @@ export default class Friend extends Component {
             })
         }
     }
-    
+    handleFriendClick = async e => {
+        await this.setState({
+            messageLink: e.target.id,
+        })
+        this.setState({
+            messageLinkClicked: true
+        })
+    }
+    buttonHoverOn = e => {
+        try {
+            document.getElementById(e.target.id).className= 'buttonOn';            
+        }
+        catch {
+            return;
+        }
+    }
+    buttonHoverOff = e => {
+        try {
+            document.getElementById(e.target.id).className='buttonOff';  
+        }
+        catch {
+            return;
+        }
+    }
+
     render() {
         if(!this.state.loggedIn) {
             return <Redirect to='/'/>
+        }
+        if(this.state.messageLinkClicked) {
+            return <Redirect to={this.state.messageLink}/>
         }
         return (
             <div>
                 <Nav page={'Friend'} username={ this.state.username }/>
                 <p id='friendUsernameCodeInfo'>Your username and friend code are <strong>{ this.state.username }</strong> and <strong>{ this.state.userId }</strong></p>
+                <p>Add a friend by their username or code</p>
+                <div id='friendFormsBox'>
+                    <div>
+                    <form onSubmit={ this.submitUsernameHandler }>
+                        <input name='friendUsername' placeholder='username' onChange={ this.changeHandler }/>
+                        <button type='submit'>{this.state.buttonMessageUsername}</button>
+                    </form>
+                    <p id='friendUsernameErr'>{ this.state.errorMessageUsername }</p>
+                    </div><div>
+                    <form onSubmit={ this.submitCodeHandler }>
+                        <input type='number' name='friendCode' placeholder='code' onChange={ this.changeHandler }/>
+                        <button type='submit'>{this.state.buttonMessageCode}</button>
+                    </form>
+                    <p id='friendCodeErr'>{ this.state.errorMessageCode }</p>
+                    </div>
+                </div>
                 
-                <form onSubmit={ this.submitUsernameHandler }>
-                    <label htmlFor='friendUsername'>Add friend by their username</label>
-                    <input name='friendUsername' placeholder='Jonathan27' onChange={ this.changeHandler }/>
-                    <input type='submit' value={ this.state.buttonMessageUsername }></input>
-                </form>
-                <p id='friendUsernameErr'>{ this.state.errorMessageUsername }</p>
-                <form onSubmit={ this.submitCodeHandler }>
-                    <label htmlFor='friendCode'>or by their code</label>
-                    <input type='number' name='friendCode' placeholder='123' onChange={ this.changeHandler }/>
-                    <input type='submit' value={ this.state.buttonMessageCode }></input>
-                </form>
-                <p id='friendCodeErr'>{ this.state.errorMessageCode }</p>
-                
-                {this.state.friendArr.map((friend, index) => (    
-                    <div key={index} className='contactUserBox'>
-                        <div className='contactUserBoxLeft'>
-                            <img src={friend.friendProfilePic} alt='friend profile'></img>
+                {this.state.friendArr.map((friend, index) => (
+                    
+                    <div key={index} onClick={this.handleFriendClick}className='contactUserBox'>
+                        <div className='friendUserBoxLeft'>
+                            <img id={'/user/message/'+friend.friendid+'/'+friend.friendusername} src={friend.friendProfilePic} alt='friend profile'></img>
                         </div>
-                        <div className='contactUserBoxRight'>
+                        <div className='friendUserBoxRight'>
                             <p className='contactMessageName'>{friend.friendusername}</p>
                             <ul className='deleteFriendBox'>
-                                <li className='contactMessageText'><button id={friend.friendusername} onClick={ this.removeFriend }>Remove Friend</button></li>
-                                <li className='contactMessageText'><button id={friend.friendusername} onClick={ this.deleteConversation }>Delete Conversation</button></li>
+                                <li className='contactMessageText'><button id={friend.friendusername+'+friend'} className='' onClick={ this.removeFriend } onMouseEnter={this.buttonHoverOn} onMouseLeave={this.buttonHoverOff}>Remove Friend</button></li>
+                                <li className='contactMessageText'><button id={friend.friendusername+'+conver'} className='' onClick={ this.deleteConversation } onMouseEnter={this.buttonHoverOn} onMouseLeave={this.buttonHoverOff}>Delete Conversation</button></li>
                             </ul>
                         </div>
                     </div>

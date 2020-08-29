@@ -82,6 +82,7 @@ export default function Nav(props) {
                 <nav id='navBox'>
                     <button id='hamburgerButton' onClick={hamburgerMenuOut}><i className="fas fa-bars"></i></button>
                     <p className='friendNavText'>{props.username}'s Friends</p>
+                    <div></div>
                 </nav>
             </>
         )
