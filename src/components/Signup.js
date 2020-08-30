@@ -26,7 +26,7 @@ export default class Signup extends Component {
     }
     submitHandler = e => {
         this.setState({ 
-            buttonMessage: 'Loading...',
+            buttonMessage: <i id='loadingSpinnerFriend' className="fas fa-spinner"></i>,
             errorMessage: ''
         });
         e.preventDefault();
@@ -69,6 +69,7 @@ export default class Signup extends Component {
             .catch(error => {
                 this.setState({
                     errorMessage: 'Unable to connect to server',
+                    buttonMessage: 'Sign Up'
                 })
             })
         }
@@ -107,7 +108,7 @@ export default class Signup extends Component {
                     <p id='signupErrorMsg'>{ this.state.errorMessage }</p>
                     <p>Already have an account? Login <a href='/login'>here</a></p>
                 </div>
-                
+                <div id='hiddenStaging'><i className="fas fa-spinner"></i></div>
             </div>
         )
     }

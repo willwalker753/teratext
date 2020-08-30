@@ -59,7 +59,7 @@ export default class Home extends Component {
                     <h1 id='homeTitle'>Teratext</h1>
                 </div>
                 <div id='homeDemoBox'>
-                    <p>Sign in with a demo account here to try out all the features!</p>
+                    <p>Login with a demo account here to try out all our features!</p>
                     <button id='demoButton' onClick={this.demoLogin}>{this.state.quickDemoText}</button>
                 </div>
                 <div id='homeAbout'>
@@ -78,7 +78,9 @@ export default class Home extends Component {
                     <p>Let's go!</p>
                     <a href='/signup'><button id='homeSignupButton'>Sign Up</button></a>     
                 </div>
-                <footer id='homeFooter'></footer>
+                <footer id='homeFooter'>
+                    <p>Any comments or questions about the site can be directed to <a href='mailto:willwalker@email.com'>willwalker@email.com</a></p>
+                </footer>
             </>
         )
     }
