@@ -15,10 +15,16 @@ export default class Login extends Component {
     }  
     changeHandler = e => {
         this.setState({ [e.target.name]: e.target.value });
+        if(e.target.value !== ''){
+            document.getElementById(e.target.id).className='filled';
+        }
+        else {
+            document.getElementById(e.target.id).className='unfilled';
+        }
     }
     submitHandler = e => {
         this.setState({ 
-            buttonMessage: 'Loading...',
+            buttonMessage: <i id='loadingSpinnerFriend' className="fas fa-spinner"></i>,
             errorMessage: ''
         });
         e.preventDefault();
@@ -33,9 +39,11 @@ export default class Login extends Component {
             axios.post(url ,this.state)
             .then(response => {
                 if(response.status === 200){
-                    if(response.data === 'Account not found'){
+                    console.log(response)
+                    if((response.data === 'Account not found')||(response.data === '')){
                         this.setState({
                             errorMessage: 'Incorrect username or password',
+                            buttonMessage: 'Login'
                         })
                     }
                     else{
@@ -49,8 +57,25 @@ export default class Login extends Component {
             .catch(error => {
                 this.setState({
                     errorMessage: 'Incorrect username or password',
+                    buttonMessage: 'Login'
                 })
             })
+        }
+    }
+    buttonHoverOn = e => {
+        try {
+            document.getElementById(e.target.id).className= 'loginButtonOn';            
+        }
+        catch {
+            return;
+        }
+    }
+    buttonHoverOff = e => {
+        try {
+            document.getElementById(e.target.id).className='loginButtonOff';  
+        }
+        catch {
+            return;
         }
     }
     render() {
@@ -60,15 +85,17 @@ export default class Login extends Component {
         }
         return (
             <div>
-                <a href='/'><h2>Teratext</h2></a>
-                <form onSubmit={ this.submitHandler }>
-                    <label htmlFor='username'>Username</label>
-                    <input type='text' name='username' onChange={this.changeHandler}></input>
-                    <label htmlFor='password'>Password</label>
-                    <input type='password' name='password' onChange={this.changeHandler}></input>
-                    <input type='submit' value={this.state.buttonMessage}></input>
+                <h2 id='loginTeratext'><a href='/'>Teratext</a></h2>
+                <form id='loginForm' onSubmit={ this.submitHandler }>
+                    <input type='text' name='username' id='loginUsername' placeholder='Username' onChange={this.changeHandler}></input>
+                    <input type='password' name='password' id='loginPassword' placeholder='Password' onChange={this.changeHandler}></input>
+                    <button type='submit' id='loginSubmit' onMouseEnter={this.buttonHoverOn} onMouseLeave={this.buttonHoverOff}>{this.state.buttonMessage}</button>
                 </form>
-                <p>{ this.state.errorMessage }</p>
+                <div id='loginText'>
+                    <p id='loginErrorMsg'>{ this.state.errorMessage }</p>
+                    <p>Need an account? Signup <a href='/signup'>here</a></p>
+                </div> 
+                <div id='hiddenStaging'><i className="fas fa-spinner"></i></div>
             </div>
         )
     }

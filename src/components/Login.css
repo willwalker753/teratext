@@ -1,0 +1,103 @@
+#loginTeratext {
+    margin-top: 22px;
+    text-align: center;
+}
+#loginTeratext > a{
+    text-decoration: none;
+    color: black;
+}
+#loginForm {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(236, 236, 236);
+    padding-top: 20px;
+    padding-bottom: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 20px;
+}
+#loginForm > input {
+    border: none;
+    outline: none;
+    border-bottom: 2px solid rgb(155, 155, 155);
+    color: black;
+    margin-bottom: 20px;
+    padding-left: 3px;
+    padding-bottom: 3px;
+    background-color: rgb(236, 236, 236);
+}
+#loginForm > button {
+    background-color: white;
+    border: none;
+    padding:5px;
+    border-radius: 5px;
+    width: 48px;
+    height: 26px;
+}
+.filled {
+    animation: filled 1s 1 forwards;
+}
+@keyframes filled {
+    0%{
+        border-bottom: 2px solid rgb(155, 155, 155);
+    }
+    100%{
+        border-bottom: 2px solid rgb(21, 91, 255);
+    }
+}
+.unfilled {
+    animation: unfilled 1s 1 forwards;
+}
+@keyframes unfilled {
+    0%{
+        border-bottom: 2px solid rgb(21, 91, 255);
+    }
+    100%{
+        border-bottom: 2px solid rgb(155, 155, 155);
+    }
+}
+#loginText {
+    margin-top: 22px;
+    text-align: center;
+}
+#loginErrorMsg {
+    color: rgb(165, 0, 0);
+}
+#loginText > p > a {
+    text-decoration: none;
+    color: rgb(21, 91, 255);
+}
+#hiddenStaging {
+    display: none;
+}
+.loginButtonOn {
+    animation: loginButtonOn .5s 1 forwards;
+    cursor: pointer;
+}
+@keyframes loginButtonOn {
+    0%{
+        background-color: white;
+        color: black;
+    }
+    100%{
+        background-color: rgb(55, 133, 223);
+        color: white;
+    }
+}
+.loginButtonOff {
+    animation: loginButtonOff .5s 1 forwards;
+}
+@keyframes loginButtonOff {
+    0%{
+        background-color: rgb(55, 133, 223);
+        color: white;
+    }
+    100%{
+        background-color: white;
+        color: black;
+    }
+}

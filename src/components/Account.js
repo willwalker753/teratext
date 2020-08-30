@@ -109,6 +109,22 @@ export default class Account extends Component {
             })
         }
     }
+    buttonHoverOn = e => {
+        try {
+            document.getElementById(e.target.id).className= 'buttonOn';            
+        }
+        catch {
+            return;
+        }
+    }
+    buttonHoverOff = e => {
+        try {
+            document.getElementById(e.target.id).className='buttonOff';  
+        }
+        catch {
+            return;
+        }
+    }
     render() {
         if(!this.state.loggedIn) {
             return <Redirect to='/'/>
@@ -119,19 +135,22 @@ export default class Account extends Component {
         return (
             <div>
                 <Nav page={'Account'} username={this.state.username}/>
-                <img id='accountProfilePic' src={this.state.profilePic} alt='my profile'></img>
-                <form id='pictureMessageForm'>  
-                    <p>Change your profile picture</p>
-                    <button id='pictureMessageInput'>
-                    <i className="fas fa-images"></i>
-                        <FileBase64
-                        multiple={ false }
-                        onDone={ this.profilePic.bind(this) }   
-                    />
-                    </button>
-                </form>
-                <button onClick={ this.logoutHandler }>Logout</button>
-                <button onClick={ this.deleteAccount }>{this.state.deleteAccountMessage}</button>
+                <div id='accountFlexboxTop'>
+                    <img id='accountProfilePic' src={this.state.profilePic} alt='my profile'></img>
+                    <form id='pictureMessageForm'>  
+                        <button id='pictureMessageInput' onMouseEnter={this.buttonHoverOn} onMouseLeave={this.buttonHoverOff}>
+                        <i className="fas fa-images"></i>
+                            <FileBase64
+                            multiple={ false }
+                            onDone={ this.profilePic.bind(this) }   
+                        />
+                        </button>
+                    </form>
+                </div>   
+                <div id='accountFlexboxBottom'>      
+                    <button onClick={ this.logoutHandler } id='accountLogOut' onMouseEnter={this.buttonHoverOn} onMouseLeave={this.buttonHoverOff}>Logout</button>             
+                    <button onClick={ this.deleteAccount } id='accountDelete' onMouseEnter={this.buttonHoverOn} onMouseLeave={this.buttonHoverOff}>{this.state.deleteAccountMessage}</button>                    
+                </div>
             </div>
         )
     }

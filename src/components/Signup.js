@@ -17,6 +17,12 @@ export default class Signup extends Component {
     }  
     changeHandler = e => {
         this.setState({ [e.target.name]: e.target.value });
+        if(e.target.value !== ''){
+            document.getElementById(e.target.id).className='filled';
+        }
+        else {
+            document.getElementById(e.target.id).className='unfilled';
+        }
     }
     submitHandler = e => {
         this.setState({ 
@@ -33,6 +39,12 @@ export default class Signup extends Component {
         else if(this.state.password  !== this.state.repeatPassword) {
             this.setState({
                 errorMessage: 'Passwords do not match',
+                buttonMessage: 'Sign Up'
+            })
+        }
+        else if (/\s/.test(this.state.username)) {
+            this.setState({
+                errorMessage: 'Cannot have spaces in username',
                 buttonMessage: 'Sign Up'
             })
         }
@@ -61,6 +73,22 @@ export default class Signup extends Component {
             })
         }
     }
+    buttonHoverOn = e => {
+        try {
+            document.getElementById(e.target.id).className= 'signupButtonOn';            
+        }
+        catch {
+            return;
+        }
+    }
+    buttonHoverOff = e => {
+        try {
+            document.getElementById(e.target.id).className='signupButtonOff';  
+        }
+        catch {
+            return;
+        }
+    }
     render() {
         const { redirect } = this.state;
         if(redirect) {
@@ -68,17 +96,18 @@ export default class Signup extends Component {
         }
         return (
             <div>
-                <a href='/'><h2>Teratext</h2></a>
-                <form onSubmit={ this.submitHandler }>
-                    <label htmlFor='username'>Username</label>
-                    <input type='text' name='username' onChange={this.changeHandler}></input>
-                    <label htmlFor='password'>Password</label>
-                    <input type='password' name='password' onChange={this.changeHandler}></input>
-                    <label htmlFor='repeatPassword'>Repeat Password</label>
-                    <input type='password' name='repeatPassword' onChange={this.changeHandler}></input>
-                    <input type='submit' value={ this.state.buttonMessage }></input>
+                <h2 id='signupTeratext'><a href='/'>Teratext</a></h2>
+                <form id='signupForm' onSubmit={ this.submitHandler }>
+                    <input type='text' name='username' id='signupUsername' placeholder='Username' onChange={this.changeHandler}></input>
+                    <input type='password' name='password' id='signupPassword' placeholder='Password' onChange={this.changeHandler}></input>
+                    <input type='password' name='repeatPassword' id='signupRepPassword' placeholder='Repeat Password' onChange={this.changeHandler}></input>
+                    <button type='submit' id='signupSubmit' onMouseEnter={this.buttonHoverOn} onMouseLeave={this.buttonHoverOff}>{ this.state.buttonMessage }</button>
                 </form>
-                <p>{ this.state.errorMessage }</p>
+                <div id='signupText'>
+                    <p id='signupErrorMsg'>{ this.state.errorMessage }</p>
+                    <p>Already have an account? Login <a href='/login'>here</a></p>
+                </div>
+                
             </div>
         )
     }
