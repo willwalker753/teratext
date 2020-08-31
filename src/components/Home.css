@@ -203,20 +203,26 @@
         display: flex;
         justify-content: space-between;
         flex-wrap: nowrap;
+        height: 300px;
         margin-left: 20px;
         margin-right: 20px;
     }
-    #deskCardBox > div {
-        text-align: center;
-        
+    #card1, #card2, #card3, #card4 {
+        perspective: 750px;
     }
-    #deskCardBox > div > img {
+    .homeCard {
+        position: relative;
+        text-align: center;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+    }
+    .homeCard > img {
         height: 300px;
         width: 90%;
         border-radius: 8px;
         box-shadow: 8px 8px 5px #ccc;
     }
-    #deskCardBox > div > p {
+    .homeCard > p {
         width: 90%;
         height: 300px;
         margin-top: 0px;
@@ -232,5 +238,43 @@
         color: white;
         border-radius: 8px;
     }
-
+    #card1:hover #card1Inner {
+        transform: rotateX(80deg);
+        animation: cardDown .8s 1 forwards;
+    }
+    #card2:hover #card2Inner {
+        transform: rotateX(80deg);
+        animation: cardDown .8s 1 forwards;
+    }
+    #card3:hover #card3Inner {
+        transform: rotateX(80deg);
+        animation: cardDown .8s 1 forwards;
+    }
+    #card4:hover #card4Inner {
+        transform: rotateX(80deg);
+        animation: cardDown .8s 1 forwards;
+    }
+    @keyframes cardDown {
+        0%{
+            top: 0px;
+            height: 300px;
+        }
+        100%{
+            top: 150px;
+            height: 250px;
+        }
+    }
+    .cardLeave {
+        animation: cardUp .8s 1 forwards;
+    }
+    @keyframes cardUp {
+        0%{
+            top: 150px;
+            height: 250px;
+        }
+        100%{
+            top: 0px;
+            height: 300px;
+        }
+    }
 }
