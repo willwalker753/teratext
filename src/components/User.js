@@ -166,7 +166,7 @@ export default class User extends Component {
             })
             .catch(error => {
                 this.setState({
-                    addFriendText: 'Unable to retrieve friends list',
+                    addFriendText: 'Add a new friend here',
                 })
             })
         }

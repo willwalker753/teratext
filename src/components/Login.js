@@ -35,6 +35,9 @@ export default class Login extends Component {
             })
         }
         else{
+            let curUsername = this.state.username;
+            curUsername = curUsername.toLowerCase();
+            this.setState({username: curUsername});
             let url = 'https://tera-text-api.herokuapp.com/login';
             axios.post(url ,this.state)
             .then(response => {

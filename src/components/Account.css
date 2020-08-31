@@ -29,6 +29,7 @@
     position: relative;
     bottom: 75px;
     cursor: pointer;
+    opacity: 0;
 }
 .buttonOn {
     animation: buttonOn .5s 1 forwards;

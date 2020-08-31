@@ -49,11 +49,14 @@ export default class Signup extends Component {
             })
         }
         else{
+            let curUsername = this.state.username;
+            curUsername = curUsername.toLowerCase();
+            this.setState({username: curUsername});
             let url = 'https://tera-text-api.herokuapp.com/register';
             axios.post(url ,this.state)
             .then(response => {
                 console.log(response);
-                if(response.data[0].username === undefined){
+                if((response.data[0].username === undefined)||(response.data === 'Account creation unsuccessful')){
                     this.setState({
                         errorMessage: 'Username is already taken',
                         buttonMessage: 'Sign Up'
