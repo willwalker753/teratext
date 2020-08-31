@@ -34,7 +34,7 @@ class Message extends Component {
         e.preventDefault();
         e.target.value = '';
         if(this.state.text === ''){return}
-        this.setState({ sendButton: <i className="fas fa-spinner"></i> })
+        this.setState({ sendButton: <i id='messageLoadingSpinner' className="fas fa-spinner"></i> })
         let url = 'https://tera-text-api.herokuapp.com/message/send';
         axios.post(url ,this.state)
         .then(response => {
@@ -92,7 +92,7 @@ class Message extends Component {
         await axios.post(url , body)
         .then(response => {
             if(response.status === 200){
-                this.setState({ sendButton: <i className="fas fa-spinner"></i> })
+                this.setState({ sendButton: <i id='messageLoadingSpinner' className="fas fa-spinner"></i> })
                 response = response.data.rows;
                 for(let i=0; i<response.length; i++){
                     this.setState({
@@ -227,11 +227,11 @@ class Message extends Component {
         })
         this.setState({ sendButton: <i className="fas fa-paper-plane"></i> })
     }
-    async getFiles(picture){
+    async sendPicture(picture){
         await this.setState({
             testRender: true,
             testUri: picture.base64,
-            sendPicButton: <i className="fas fa-spinner"></i>
+            sendPicButton: <i id='messageLoadingSpinner' className="fas fa-spinner"></i>
         })
         let testImageW = Math.floor(document.getElementById('testImage').width);
         let testImageH = Math.floor(document.getElementById('testImage').height);
@@ -286,12 +286,12 @@ class Message extends Component {
                         <input type="text" id='textFormText' name='text' value={this.state.text} onChange={this.changeHandler}></input>
                         <button type="submit">{this.state.sendButton}</button>
                     </form>
-                    <form id='pictureMessageForm'>  
-                        <button id='pictureMessageInput'>
+                    <form id='pictureSendForm'>  
+                        <button id='pictureSendInput'>
                         {this.state.sendPicButton}
                             <FileBase64
                             multiple={ false }
-                            onDone={ this.getFiles.bind(this) }   
+                            onDone={ this.sendPicture.bind(this) }   
                         />
                         </button>
                     </form>

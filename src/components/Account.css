@@ -1,5 +1,5 @@
 #accountFlexboxTop {
-    margin-top: 70px;
+    margin-top: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -68,8 +68,8 @@
     background-color: white;
 }
 #accountFlexboxBottom {
-    margin-top: 50px;
-    height: 140px;
+    margin-top: 60px;
+    height: 135px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

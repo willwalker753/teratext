@@ -53,34 +53,69 @@
 }
 #messageForm {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: 0px;
     position: fixed;
     z-index: 2;
-    bottom:10px;
+    bottom:0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: rgb(216, 216, 216);
     width: 100%;
-    margin-left: 15px;
 }
-#pictureMessageForm {
-    margin-right: 30px;
+#pictureSendInput > i {
+    margin-top: 6px;
 }
 #textFormText {
-    min-width: 200px;
+    min-width: 65vw;
+    height: 30px;
+    border: none;
+    outline: none;
+    padding-left: 15px;
+    border-radius: 15px 0px 0px 15px;
+}
+#textForm > button {
+    height: 30px;
+    width: 40px;
+    border: none;
+    border-radius: 0px 15px 15px 0px;
+    background-color: rgb(73, 152, 255);
+    color: white;
+    font-size: 14px;
+    text-align: center;
+}
+#textForm > button > i {
+    position: relative;
+    right: 2px;
 }
 #testImage {
     display: none;
 }
-#pictureMessageInput > input {
-    height: 20px;
-    width: 60px;
+#pictureSendInput > input {
+    height: 30px;
+    width: 40px;
     position: relative;
     bottom: 18px;
     right:8px;
     z-index: 5;
     opacity: 0;
 }
-#pictureMessageInput {
+#pictureSendInput {
     z-index: 4;
-    width: 60px;
-    height: 21px;
-
+    width: 40px;
+    height: 30px;
+    border-radius: 15px;
+    background-color: rgb(73, 152, 255);
+    color: white;
+    font-size: 16px;
+    border: none;
+}
+#messageLoadingSpinner {
+    animation: messageLoadingSpinner 1.9s infinite forwards;
+}
+@keyframes messageLoadingSpinner {
+    0%{transform: rotate(0deg);}
+    50%{transform: rotate(740deg);}
+    100%{transform: rotate(340deg);}
 }

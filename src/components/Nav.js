@@ -34,7 +34,7 @@ export default function Nav(props) {
             <nav id='navBox'>
                 <button id='hamburgerButton' onClick={hamburgerMenuOut}><i className="fas fa-bars"></i></button>
                 <p className='friendNavText'>{props.username}'s Messages</p>
-                <div></div>
+                <div id='spacerNav'></div>
             </nav>
         </>
         
@@ -59,8 +59,8 @@ export default function Nav(props) {
                 <div id='navFriendPicName'>
                     <p className='welcomeText'>{props.friendUsername}</p>
                     <img src={props.friendProfilePic} id='navFriendProfilePic' alt='friend profile'></img>  
-                    <div></div>
                 </div>
+                <div id='spacerNav'></div>
             </nav>
         </>
         
@@ -83,7 +83,7 @@ export default function Nav(props) {
                 <nav id='navBox'>
                     <button id='hamburgerButton' onClick={hamburgerMenuOut}><i className="fas fa-bars"></i></button>
                     <p className='friendNavText'>{props.username}'s Friends</p>
-                    <div></div>
+                    <div id='spacerNav'></div>
                 </nav>
             </>
         )
@@ -106,7 +106,7 @@ export default function Nav(props) {
                 <nav id='navBox'>
                     <button id='hamburgerButton' onClick={hamburgerMenuOut}><i className="fas fa-bars"></i></button>
                     <p className='friendNavText'>{props.username}'s Account</p>
-                    <div></div>
+                    <div id='spacerNav'></div>
                 </nav>
             </>
         )
