@@ -1,6 +1,6 @@
 #messages{
     height:100vh;
-    padding-top: 50px;
+    margin-top: 40px;
     padding-bottom: 20px;
 }
 #listOfMessages {
@@ -8,7 +8,11 @@
     text-decoration: none;
     padding: 0px;
     width: 90%;
-    height: 91%;
+    height: 100%;
+    padding-bottom: 60px;
+    padding-top: 20px;
+    margin-top: 40px;
+    margin-bottom: 20px;
     margin-left: auto;
     margin-right: auto;
     display: flex;
@@ -19,12 +23,10 @@
     width: 180px;
 }
 .sent, .received { 
-    padding: 6px;
-    padding-left: 8px;
-    padding-right: 8px;
+    padding: 8px;
     width: fit-content;
     max-width: 200px;
-    margin-top: 20px;
+
 }
 .sent {
     border-radius: 5px 5px 0px 5px;
@@ -42,6 +44,7 @@
     color: rgb(133, 133, 133);
     font-size: 12px;
     margin-left: 2px;
+    margin-bottom: 20px;
 }
 .sentTs {
     align-self: flex-end;
@@ -66,6 +69,7 @@
 }
 #pictureSendInput > i {
     margin-top: 6px;
+    cursor: pointer;
 }
 #textFormText {
     min-width: 65vw;
@@ -84,6 +88,8 @@
     color: white;
     font-size: 14px;
     text-align: center;
+    cursor: pointer;
+    outline: none;
 }
 #textForm > button > i {
     position: relative;
@@ -100,6 +106,7 @@
     right:8px;
     z-index: 5;
     opacity: 0;
+    cursor: pointer;
 }
 #pictureSendInput {
     z-index: 4;
@@ -110,6 +117,7 @@
     color: white;
     font-size: 16px;
     border: none;
+    cursor: pointer;
 }
 #messageLoadingSpinner {
     animation: messageLoadingSpinner 1.9s infinite forwards;
@@ -118,4 +126,36 @@
     0%{transform: rotate(0deg);}
     50%{transform: rotate(740deg);}
     100%{transform: rotate(340deg);}
+}
+::-webkit-scrollbar {
+    width: 0px;
+}
+::-webkit-scrollbar-track {
+    border-radius: 0px;
+}
+::-webkit-scrollbar-thumb {
+    background: red;
+    border-radius: 0px;
+}
+@media only screen and (min-width: 600px) {
+    .sent, .received {
+        max-width: 300px;
+    }
+    #listOfMessages > li > img{
+        width: 250px;
+    }
+}
+@media only screen and (min-width: 1000px) {
+    #listOfMessages {
+        width: 60%;
+    }
+    .sent, .received {
+        max-width: 350px;
+    }
+    #listOfMessages > li > img{
+        width: 300px;
+    }
+    #textFormText {
+        min-width: 45vw;
+    }
 }

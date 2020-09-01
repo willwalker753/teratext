@@ -98,6 +98,7 @@
     background-color: rgb(95, 95, 95);
     border:none;
     cursor: pointer;
+    outline: none;
 }
 #hamburgerButtonOnMenu:hover {
     color: rgb(168, 0, 0)
@@ -108,6 +109,7 @@
     background-color: rgb(216, 216, 216);
     border:none;
     cursor: pointer;
+    outline: none;
 }
 #hamburgerMenu { 
     position: absolute;
