@@ -143,7 +143,7 @@ export default class Home extends Component {
                         <div id='card3' onMouseLeave={this.cardLeave}>
                             <div id='card3Inner' className='homeCard'>
                                 <img src='https://github.com/willwalker753/organizing-your-react-code/blob/master/card3.jpg?raw=true' alt='card3'></img>
-                                <p>Texting supports realtime including pictures to both parties</p>
+                                <p>Text your friends realtime even with pictures</p>
                             </div>
                         </div>
                         <div id='card4' onMouseLeave={this.cardLeave}>
