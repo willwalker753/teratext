@@ -37,6 +37,7 @@
     border-radius: 5px;
     width: 48px;
     height: 26px;
+    outline: none;
 }
 .filled {
     animation: filled 1s 1 forwards;
@@ -99,5 +100,27 @@
     100%{
         background-color: white;
         color: black;
+    }
+}
+@media only screen and (min-width: 600px) {
+    #loginTeratext {
+        margin-top: 100px;
+    }
+    #loginForm {
+        width: fit-content;
+        padding: 50px;
+        padding-bottom: 40px;
+    }
+    #loginForm > input {
+        margin-bottom: 30px;
+        padding-left: 3px;
+        padding-bottom: 3px;
+        font-size: 16px;
+    }
+    #loginForm > button {
+        font-size: 16px;
+        width: 70px;
+        height: 30px;
+        
     }
 }

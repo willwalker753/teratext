@@ -17,6 +17,7 @@
     padding-right: 10px;
     margin-bottom: 20px;
     cursor: pointer;
+    box-shadow: 5px 5px 3px #ccc;
 }
 .contactUserBoxLeft img {
     height: 60px;
@@ -72,18 +73,31 @@
     color: rgb(0, 3, 165);
 }
 .enter {
+    
     animation: enter .35s 1 forwards;
 }
 @keyframes enter {
-    0%{background-color: rgb(214, 214, 214);}
-    100%{background-color: rgb(189, 189, 189);}
+    0%{
+        background-color: rgb(214, 214, 214);
+        box-shadow: 5px 5px 3px #ccc;
+    }
+    100%{
+        background-color: rgb(189, 189, 189);
+        box-shadow: 3px 3px 3px #ccc;
+    }
 }
 .leave {
     animation: leave .35s forwards;
 }
 @keyframes leave {
-    0%{background-color: rgb(189, 189, 189);}
-    100%{background-color: rgb(214, 214, 214);}
+    0%{
+        background-color: rgb(189, 189, 189);
+        box-shadow: 3px 3px 3px #ccc;
+    }
+    100%{
+        background-color: rgb(214, 214, 214);
+        box-shadow: 5px 5px 3px #ccc;
+    }
 }
 @media only screen and (min-width: 600px) {
     #userSpaceTop {

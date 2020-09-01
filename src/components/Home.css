@@ -369,7 +369,7 @@
         margin-right: auto;
         padding-left: 20px;
         padding-right: 20px;
-        padding-top: 200px;
+        padding-top: 180px;
         position: relative;
         bottom: 453px;
         background-color: rgba(68, 68, 68, 0.589);
@@ -380,21 +380,21 @@
     @keyframes cardDown {
         0%{
             top: 0px;
-            height: 300px;
+            height: 450px;
         }
         100%{
-            top: 240px;
-            height: 250px;
+            top: 220px;
+            height: 450px;
         }
     }
     @keyframes cardUp {
         0%{
-            top: 240px;
-            height: 250px;
+            top: 220px;
+            height: 450px;
         }
         100%{
             top: 0px;
-            height: 300px;
+            height: 450px;
         }
     }
 }

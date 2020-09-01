@@ -4,9 +4,6 @@
     align-items: center;
     justify-content: center;
 }
-#pictureMessageForm {
-
-}
 #pictureMessageForm > button {
     height: 120px;
     width: 150px;
@@ -86,4 +83,9 @@
 }
 #accountDelete {
     max-width: 80vw;
+}
+@media only screen and (min-width: 600px){
+    #accountFlexboxTop {
+        margin-top: 180px;
+    }
 }

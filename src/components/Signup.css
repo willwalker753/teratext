@@ -37,6 +37,7 @@
     border-radius: 5px;
     width: 70px;
     height: 26px;
+    outline: none;
 }
 .filled {
     animation: filled 1s 1 forwards;
@@ -103,4 +104,26 @@
 }
 #hiddenStaging {
     display: none;
+}
+@media only screen and (min-width: 600px) {
+    #signupTeratext {
+        margin-top: 100px;
+    }
+    #signupForm {
+        width: fit-content;
+        padding: 50px;
+        padding-bottom: 40px;
+    }
+    #signupForm > input {
+        margin-bottom: 30px;
+        padding-left: 3px;
+        padding-bottom: 3px;
+        font-size: 16px;
+    }
+    #signupForm > button {
+        font-size: 16px;
+        width: 90px;
+        height: 30px;
+        
+    }
 }
