@@ -45,7 +45,31 @@ export default class Home extends Component {
             this.setState({
                 demoLogin: true
             })
-        }       
+        }  
+        else{
+            try {
+                document.getElementById('card1').className = 'homeCard card1OnLoad';
+                document.getElementById('card2').className = 'homeCard card2OnLoad';
+                document.getElementById('card3').className = 'homeCard card3OnLoad';
+                document.getElementById('card4').className = 'homeCard card4OnLoad';
+                setTimeout(function() {
+                    document.getElementById('card1').className = 'homeCard cardLeave';
+                },1000);
+                setTimeout(function() {
+                    document.getElementById('card3').className = 'homeCard cardLeave';
+                },1400);
+                setTimeout(function() {
+                    document.getElementById('card2').className = 'homeCard cardLeave';
+                },1800);
+                setTimeout(function() {
+                    document.getElementById('card4').className = 'homeCard cardLeave';
+                },2200);
+            }
+            catch{
+                return;
+            }
+        } 
+        
     }
     cardLeave = e => {
         try {
@@ -96,6 +120,12 @@ export default class Home extends Component {
                 <div id='desktopView'>
                     <div id='deskHomeHeader'>
                         <h1 id='homeTitle'>Teratext</h1>
+                        <div>
+                            <button id='demoButton' onClick={this.demoLogin}>{this.state.quickDemoText}</button>
+                            <a href='/login'><button id='homeLoginButton'>Login</button></a>
+                            <a href='/signup'><button id='homeSignupButton'>Sign Up</button></a>
+                        </div>
+                        
                     </div>
                     <div id='deskCardBox'>
                         <div id='card1' onMouseLeave={this.cardLeave}>
@@ -123,6 +153,7 @@ export default class Home extends Component {
                             </div>
                         </div>
                     </div>
+                    <div id='deskHomeFooter'></div>
                 </div>
             </div>
         )

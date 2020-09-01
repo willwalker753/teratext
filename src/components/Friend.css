@@ -116,3 +116,59 @@
         color: black;
     }
 }
+.friendMessageName {
+    text-transform: capitalize;
+}
+@media only screen and (min-width: 500px) {
+    .friendMessageName {
+        font-size: 18px;
+    }
+    .friendUserBoxRight {
+        width: 300px;
+        margin-left: 50px;
+    }
+    .deleteFriendBox {
+
+        margin-top: 20px;
+    }
+    .deleteFriendBox > li > button {
+        font-size: 15px;
+    }
+    #friendFormBox {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+@media only screen and (min-width: 1000px) {
+    #friendFormBox {
+        width: 60%;
+    }
+    .friendMessageName {
+        font-size: 20px;
+        position: relative;
+        top: 25px;
+    }
+    .friendUserBoxRight {
+        width: 100%;
+
+    }
+    .deleteFriendBox {
+        display: flex;
+        margin-top: 20px;
+        margin-left: 50px;
+        position: relative;
+        bottom: 20px;
+    }
+    .deleteFriendBox > li > button {
+        font-size: 18px;
+    }
+}
+@media only screen and (min-width: 1300px) { 
+    #friendFormBox {
+        width: 50%;
+    }
+    .deleteFriendBox {
+        margin-left: 150px;
+    }
+}

@@ -267,7 +267,7 @@ export default class Friend extends Component {
                             <img id={'/user/message/'+friend.friendid+'/'+friend.friendusername} src={friend.friendProfilePic} alt='friend profile'></img>
                         </div>
                         <div className='friendUserBoxRight'>
-                            <p className='contactMessageName'>{friend.friendusername}</p>
+                            <p className='friendMessageName'>{friend.friendusername}</p>
                             <ul className='deleteFriendBox'>
                                 <li className='contactMessageText'><button id={friend.friendusername+'+friend'} className='' onClick={ this.removeFriend } onMouseEnter={this.buttonHoverOn} onMouseLeave={this.buttonHoverOff}>Remove Friend</button></li>
                                 <li className='contactMessageText'><button id={friend.friendusername+'+conver'} className='' onClick={ this.deleteConversation } onMouseEnter={this.buttonHoverOn} onMouseLeave={this.buttonHoverOff}>Delete Conversation</button></li>

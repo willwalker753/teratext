@@ -85,3 +85,23 @@
     0%{background-color: rgb(189, 189, 189);}
     100%{background-color: rgb(214, 214, 214);}
 }
+@media only screen and (min-width: 600px) {
+    #userSpaceTop {
+        height: 80px;
+    }
+    .contactUserBox {
+        width: 60%;
+        justify-content: start;
+    }
+    .contactUserBoxRight {
+        width: 90%;
+    }
+    .contactMessageText {
+        width: 80%;
+    }
+}
+@media only screen and (min-width: 1100px) {
+    .contactUserBox {
+        width: 50%;
+    }
+}

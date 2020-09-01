@@ -189,8 +189,45 @@
     }
 }
 @media only screen and (min-width: 700px) {
+    #deskHomeHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 15vh;
+        width: 95%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    #deskHomeHeader > div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
     #homeTitle {
-        margin-top: 0px;
+        margin: 0px;
+    }
+    #demoButton, #homeLoginButton, #homeSignupButton {
+        padding: 5px 10px;
+        background-color: rgb(179, 179, 179);
+        border: none;
+        border-radius: 5px;
+        color: black;
+        font-size: 17px;
+        margin-left: 8px;
+        cursor: pointer;
+    }
+    #demoButton:hover, #homeLoginButton:hover, #homeSignupButton:hover {
+        color: white;
+        background-color: rgb(99, 99, 99);
+    }
+    #demoButton > i {
+        color: white;
+        animation: spinner 1.3s infinite forwards;
+    }
+    @keyframes spinner {
+        0%{transform: rotate(0deg);}
+        80% {transform: rotate(430deg);}
+        100%{transform: rotate(360deg);}
     }
     #desktopView {
         display: block;
@@ -208,7 +245,7 @@
         margin-right: 20px;
     }
     #card1, #card2, #card3, #card4 {
-        perspective: 750px;
+        perspective: 1150px;
     }
     .homeCard {
         position: relative;
@@ -254,22 +291,105 @@
         transform: rotateX(80deg);
         animation: cardDown .8s 1 forwards;
     }
+    .card1OnLoad #card1Inner {
+        transform: rotateX(80deg);
+        animation: cardDown .1s 1 forwards;
+    }
+    .card2OnLoad #card2Inner {
+        transform: rotateX(80deg);
+        animation: cardDown .1s 1 forwards;
+    }
+    .card3OnLoad #card3Inner {
+        transform: rotateX(80deg);
+        animation: cardDown .1s 1 forwards;
+    }
+    .card4OnLoad #card4Inner {
+        transform: rotateX(80deg);
+        animation: cardDown .1s 1 forwards;
+    }
     @keyframes cardDown {
         0%{
             top: 0px;
             height: 300px;
         }
         100%{
-            top: 150px;
+            top: 140px;
             height: 250px;
         }
     }
     .cardLeave {
+        transform: rotateX(0deg);
         animation: cardUp .8s 1 forwards;
     }
     @keyframes cardUp {
         0%{
-            top: 150px;
+            top: 140px;
+            height: 250px;
+        }
+        100%{
+            top: 0px;
+            height: 300px;
+        }
+    }
+    #deskHomeFooter {
+        height: 368px;
+        width: 100%;
+        background-color: rgb(235, 235, 235);
+        
+    }
+}
+@media only screen and (min-width: 1200px) {
+    #deskCardBox {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        height: 450px;
+    }
+    #card1, #card2, #card3, #card4 {
+        perspective: 1050px;
+    }
+    .homeCard {
+        position: relative;
+        text-align: center;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+    }
+    .homeCard > img {
+        height: 450px;
+        width: 80%;
+        border-radius: 8px;
+        box-shadow: 8px 8px 5px #ccc;
+    }
+    .homeCard > p {
+        width: 80%;
+        height: 450px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 200px;
+        position: relative;
+        bottom: 453px;
+        background-color: rgba(68, 68, 68, 0.589);
+        color: white;
+        border-radius: 8px;
+        font-size: 22px;
+    }
+    @keyframes cardDown {
+        0%{
+            top: 0px;
+            height: 300px;
+        }
+        100%{
+            top: 240px;
+            height: 250px;
+        }
+    }
+    @keyframes cardUp {
+        0%{
+            top: 240px;
             height: 250px;
         }
         100%{
