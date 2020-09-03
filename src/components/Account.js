@@ -127,7 +127,7 @@ export default class Account extends Component {
     }
     render() {
         if(!this.state.loggedIn) {
-            return <Redirect to='/'/>
+            return //<Redirect to='/'/>
         }
         if(this.state.testRender) {
             return <img src={this.state.testUri}  id='testImage' alt='test'></img>

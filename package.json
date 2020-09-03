@@ -7,13 +7,17 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
+    "chai": "^4.2.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.4",
     "locomotive-scroll": "^3.5.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-file-base64": "^1.0.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
-    "resize-base64": "^1.0.12"
+    "resize-base64": "^1.0.12",
+    "sinon": "^9.0.3"
   },
   "scripts": {
     "start": "react-scripts start",

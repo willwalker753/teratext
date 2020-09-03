@@ -262,7 +262,7 @@ export default class Friend extends Component {
                 </div>
                 {this.state.friendArr.map((friend, index) => (
                     
-                    <div key={index} onClick={this.handleFriendClick}className='contactUserBox'>
+                    <div key={index} onClick={this.handleFriendClick} className='contactUserBox'>
                         <div className='friendUserBoxLeft'>
                             <img id={'/user/message/'+friend.friendid+'/'+friend.friendusername} src={friend.friendProfilePic} alt='friend profile'></img>
                         </div>
