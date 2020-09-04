@@ -7,7 +7,7 @@
 ### 📨 [Live Demo](https://teratext.vercel.app/)
 ### 📦 [API Repo](https://github.com/willwalker753/tera-text-api)
 
-## Screenshots
+## 📷 Screenshots
 
 ### Home Page
 
@@ -21,31 +21,35 @@
 
 ![Message Page](https://i.gyazo.com/5a23623d9f386a56c602168f9036e1d9.png)
 
-## Technologies Used
+## 🧰 Technologies Used
 
 ![programming languages](https://github.com/willwalker753/organizing-your-react-code/blob/master/teratext-technologies-used.jpg?raw=true)
 
-## Install
+## 📚 Summary
+
+> Teratext has several key feaures. The user can signup/login to their account. They can make friends by submitting their friend's username or friend code then message their friends realtime with texts and pictures. Pictures can be sent from a phone camera/webcam or a local file. The user can unfriend or delete the conversation for each friend. And finally there are options to change your profile picture, sign out, or delete your account. 
+
+## ⬇️ Install
 
 ```sh
 npm install
 ```
 
-## Usage
+## ✅ Usage
 
 ```sh
 npm start
 ```
 
-## Run tests
+## 🧪 Run tests
 
 ```sh
 npm test
 ```
 
-## Author
+## ✏️ Author
 
-👤 **Will**
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Will
 
 * Website: https://willwalker.vercel.app/
 * Github: [@willwalker753](https://github.com/willwalker753)
