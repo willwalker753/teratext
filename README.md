@@ -49,7 +49,7 @@ npm test
 
 ## ✏️ Author
 
-#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Will
+#### &nbsp;&nbsp;&nbsp;&nbsp;Will
 
 * Website: https://willwalker.vercel.app/
 * Github: [@willwalker753](https://github.com/willwalker753)
