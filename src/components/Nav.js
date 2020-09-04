@@ -7,14 +7,20 @@ export default function Nav(props) {
         window.localStorage.clear();
         window.location.replace('/');
     }
+
+    // Adds menu animate out class
     function hamburgerMenuOut() {
         document.getElementById('navBox').className='fadeOutNav';
         document.getElementById('hamburgerMenu').className='hamburgerAnimateOut';
     }
+
+    // Adds menu animate in class
     function hamburgerMenuIn() {
         document.getElementById('navBox').className='fadeInNav';
         document.getElementById('hamburgerMenu').className='hamburgerAnimateIn';
     }
+
+    // Returns different hamburger menu and nav bar depending on page 
     if(props.page === 'User') {
         return(
         <>
@@ -39,6 +45,7 @@ export default function Nav(props) {
         </>
         
     )}
+
     if(props.page === 'Message') {
         return(
         <>
@@ -65,6 +72,7 @@ export default function Nav(props) {
         </>
         
     )}
+
     if(props.page === 'Friend') {
         return(
             <>
@@ -88,6 +96,7 @@ export default function Nav(props) {
             </>
         )
     }
+
     if(props.page === 'Account') {
         return(
             <>

@@ -15,8 +15,10 @@ export default class Signup extends Component {
              buttonMessage: 'Sign Up'
         }
     }  
+
     changeHandler = e => {
         this.setState({ [e.target.name]: e.target.value });
+        // If input is filled add animation class
         if(e.target.value !== ''){
             document.getElementById(e.target.id).className='filled';
         }
@@ -24,6 +26,7 @@ export default class Signup extends Component {
             document.getElementById(e.target.id).className='unfilled';
         }
     }
+
     submitHandler = e => {
         this.setState({ 
             buttonMessage: <i id='loadingSpinnerFriend' className="fas fa-spinner"></i>,
@@ -55,13 +58,14 @@ export default class Signup extends Component {
             let url = 'https://tera-text-api.herokuapp.com/register';
             axios.post(url ,this.state)
             .then(response => {
-                console.log(response);
+                // If username is taken show error
                 if((response.data[0].username === undefined)||(response.data === 'Account creation unsuccessful')){
                     this.setState({
                         errorMessage: 'Username is already taken',
                         buttonMessage: 'Sign Up'
                     })
                 }
+                // Else login and redirect to user page
                 else if(response.status === 200){
                     window.localStorage.setItem('loggedIn', true)
                     window.localStorage.setItem('username', response.data[0].username)
@@ -77,6 +81,7 @@ export default class Signup extends Component {
             })
         }
     }
+
     buttonHoverOn = e => {
         try {
             document.getElementById(e.target.id).className= 'signupButtonOn';            
@@ -85,6 +90,7 @@ export default class Signup extends Component {
             return;
         }
     }
+
     buttonHoverOff = e => {
         try {
             document.getElementById(e.target.id).className='signupButtonOff';  
@@ -93,6 +99,7 @@ export default class Signup extends Component {
             return;
         }
     }
+
     render() {
         const { redirect } = this.state;
         if(redirect) {

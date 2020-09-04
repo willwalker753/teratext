@@ -11,8 +11,11 @@ export default class Home extends Component {
             quickDemoText: 'Quick demo'
         };
         this.demoLogin = this.demoLogin.bind(this)
-      }
+    }
+
+    // Runs when click demo login button
     async demoLogin() {
+        // Render loading spinner
         this.setState({
             quickDemoText: <i className="fas fa-spinner"></i>
         })
@@ -21,8 +24,10 @@ export default class Home extends Component {
             "password": "d"
         }
         let url = 'https://tera-text-api.herokuapp.com/login';
+        // Send request for demo account to API
         await axios.post(url, reqBody)
         .then(response => {
+            // If sucessful save account details and login redirecting to user page
             if(response.status === 200){
                 window.localStorage.clear();
                 window.localStorage.setItem('loggedIn', true);
@@ -42,11 +47,13 @@ export default class Home extends Component {
     componentDidMount() {
         let loggedIn = window.localStorage.getItem('loggedIn');
         let viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+        // If still logged in redirect to user page
         if(loggedIn) {
             this.setState({
                 demoLogin: true
             })
         }  
+        // if mobile view, animate in cards from left
         else if(viewportWidth > 599){
             try {
                 document.getElementById('card1').className = 'homeCard card1OnLoad';
@@ -70,6 +77,7 @@ export default class Home extends Component {
                 return;
             }
         } 
+        // If desktop view, animate cards up in order 
         else if(viewportWidth < 600){
             try {
                 setTimeout(function() {
@@ -88,24 +96,27 @@ export default class Home extends Component {
             catch{
                 return;
             }
-        } 
-        
+        }     
     }
+
+    // When cursor leaving card add animation leave class
     cardLeave = e => {
         try {
             document.getElementById(e.target.id).className = 'homeCard cardLeave';
         }
         catch{
             return;
-        }
-        
+        } 
     }
+
     render() {
+        // If logged in redirect to user page
         if(this.state.demoLogin){
             return <Redirect to='/user'/>
         }
         return (
             <div>
+                {/* mobile view only shown at 599px width or below */}
                 <div id='mobileView'>
                     <h1 id='homeMobileTitle'>Teratext</h1>
                     <div id='mobileHomeAccount'>
@@ -132,7 +143,7 @@ export default class Home extends Component {
                         </div>
                     </div>
                 </div>
-                
+                {/* desktop view only shown at 600px width or above */}
                 <div id='desktopView'>
                     <div id='deskHomeHeader'>
                         <h1 id='homeTitle'>Teratext</h1>
@@ -140,8 +151,7 @@ export default class Home extends Component {
                             <button id='demoButton' onClick={this.demoLogin}>{this.state.quickDemoText}</button>
                             <a href='/login'><button id='homeLoginButton'>Login</button></a>
                             <a href='/signup'><button id='homeSignupButton'>Sign Up</button></a>
-                        </div>
-                        
+                        </div>  
                     </div>
                     <div id='deskCardBox'>
                         <div id='card1' onMouseLeave={this.cardLeave}>

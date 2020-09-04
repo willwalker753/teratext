@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import './App.css';
+
+//import all class components
 import Signup from './components/Signup';
 import Login from './components/Login';
 import User from './components/User';
@@ -10,6 +12,8 @@ import Home from './components/Home';
 import Friend from './components/Friend';
 
 function App() {
+  
+  //use exact react router assigning each class component to a path
   return (
     <Router>
       <Switch>

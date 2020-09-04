@@ -19,6 +19,7 @@ export default class User extends Component {
             loggedIn: true
         }
     }  
+
     async componentDidMount() {
         let loggedIn = window.localStorage.getItem('loggedIn');
         if (!loggedIn) {
@@ -38,6 +39,7 @@ export default class User extends Component {
             .then(response => {
                 if(response.status === 200){
                     response = response.data;
+                    // Iterate through response and sort sent/received and create timestamps
                     for(let i=0; i<response.length; i++){
                         if(response[i].friendmessage === null){
                             if(response[i].sender !== username){
@@ -171,6 +173,7 @@ export default class User extends Component {
             })
         }
     }
+
     contactHoverOn = e => {
         try {
             document.getElementById(e.target.id).className='enter contactUserBox';
@@ -179,6 +182,7 @@ export default class User extends Component {
             return;
         }
     }
+
     contactHoverOff = e => {
         try {
             document.getElementById(e.target.id).className='leave contactUserBox';
@@ -187,7 +191,9 @@ export default class User extends Component {
             return;
         }
     }
+
     render() {
+        // If not logged in redirect to home page
         if(!this.state.loggedIn) {
             return <Redirect to='/'/>
         }

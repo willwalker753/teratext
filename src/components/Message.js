@@ -27,16 +27,23 @@ class Message extends Component {
             friendProfilePic: ''
         }
     }  
+
+    // Runs on input change and saves value to state
     changeHandler = e => {
         this.setState({ [e.target.name]: e.target.value });
     }
+
+    // Runs on text message form submit
     submitHandler = e => {
         e.preventDefault();
         e.target.value = '';
+        // If nothing entered return
         if(this.state.text === ''){return}
+        // Render loading spinner
         this.setState({ sendButton: <i id='messageLoadingSpinner' className="fas fa-spinner"></i> })
         let url = 'https://tera-text-api.herokuapp.com/message/send';
-        axios.post(url ,this.state)
+        // Send request to API to post message
+        axios.post(url, this.state)
         .then(response => {
             if(response.status === 200){
                 this.setState({
@@ -51,8 +58,10 @@ class Message extends Component {
             })
         })
     }
+
     async componentDidMount() {
         let loggedIn = await window.localStorage.getItem('loggedIn');
+        // If not logged in redirect to home page
         if (!loggedIn) {
             this.setState({
                 loggedIn: false
@@ -69,6 +78,7 @@ class Message extends Component {
                 friendUsername: friendUsername
             });
             let url = 'https://tera-text-api.herokuapp.com/message/profilepic';
+            // Get friend's profile pic
             await axios.post(url ,this.state)
             .then(response => {
                 if(response.status === 200){
@@ -84,8 +94,10 @@ class Message extends Component {
             })
         }
         this.getMessages();
+        // Check if new messages every 2.5s
         setInterval(this.getMessages, 2500);
     }
+
     getMessages = async () => {
         let url = 'https://tera-text-api.herokuapp.com/message/all';
         let body = {username: this.state.username, userId: this.state.userId, friendUsername: this.state.friendUsername, friendId: this.state.friendId, numOfMessages: this.state.numOfMessages}
@@ -94,6 +106,7 @@ class Message extends Component {
             if(response.status === 200){
                 this.setState({ sendButton: <i id='messageLoadingSpinner' className="fas fa-spinner"></i> })
                 response = response.data.rows;
+                // Iterate through response and sort sent/received and create timestamps
                 for(let i=0; i<response.length; i++){
                     this.setState({
                         numOfMessages: response.length
@@ -227,6 +240,7 @@ class Message extends Component {
         })
         this.setState({ sendButton: <i className="fas fa-paper-plane"></i> })
     }
+
     async sendPicture(picture){
         await this.setState({
             testRender: true,
@@ -239,6 +253,7 @@ class Message extends Component {
         let divisor = Math.floor(testImageW / targetW);
         testImageW = testImageW / divisor;
         testImageH = testImageH / divisor;
+        // Compress base64 image before sending to API
         picture.base64 = resizebase64(picture.base64, testImageW, testImageH)
         this.setState({ 
             picture: picture,

@@ -24,39 +24,49 @@ export default class Friend extends Component {
             loggedIn: true
         }
     }
+
+    // Runs when form change is detected 
     changeHandler = e => {
+        // Save the current value of the form in state
         this.setState({ [e.target.name]: e.target.value });
     }
+
+    // Runs when submitting friend code form 
     submitCodeHandler = e => {
         e.preventDefault();
+        // Render a loading spinner
         this.setState({ 
             buttonMessageCode: <i id='loadingSpinnerFriend' className="fas fa-spinner"></i>,
             errorMessageCode: ''
         })
+        // If no code entered show error
         if(this.state.friendCode === '') {
             this.setState({
                 errorMessageCode: 'Please enter a code',
                 buttonMessageCode: <i className="fas fa-user-plus"></i>
             })
         }
+        // If friending yourself show error
         else if(this.state.friendCode === this.state.userId) {
             this.setState({
                 errorMessageCode: "Nope you can't friend yourself",
                 buttonMessageCode: <i className="fas fa-user-plus"></i>
             })
         }
-        else{
+        // Else send request to API to add friend
+        else {
             let url = 'https://tera-text-api.herokuapp.com/friend/addcode';
             axios.post(url ,this.state)
             .then(response => {
                 if(response.status === 200){
-                    console.log(response);
+                    // If no account found show error
                     if(response.data === 'Account not found'){
                         this.setState({
                             errorMessageCode: 'Incorrect code',
                             buttonMessageCode: <i className="fas fa-user-plus"></i>
                         })
                     }
+                    // If account found refresh
                     else if(response.data[0].id){
                         this.setState({
                             errorMessageCode: '',
@@ -73,36 +83,43 @@ export default class Friend extends Component {
             })
         }
     }  
+
+    // Runs when submitting username form
     submitUsernameHandler = e => {
         e.preventDefault();
+        // Render a loading spinner
         this.setState({ 
             buttonMessageUsername: <i id='loadingSpinnerFriend' className="fas fa-spinner"></i>,
             errorMessageUsername: ''
-        })
+        });
+        // If nothing entered show error
         if((this.state.friendUsername === '')) {
             this.setState({
                 errorMessageUsername: 'Please enter a username',
                 buttonMessageUsername: <i className="fas fa-user-plus"></i>
             })
         }
+        // If trying to friend self show error
         else if(this.state.friendUsername === this.state.username) {
             this.setState({
                 errorMessageUsername: "Nope you can't friend yourself",
                 buttonMessageUsername: <i className="fas fa-user-plus"></i>
             })
         }
+        // Else send request to API to add friend
         else{
             let url = 'https://tera-text-api.herokuapp.com/friend/addusername';
             axios.post(url ,this.state)
             .then(response => {
                 if(response.status === 200){
-                    console.log(response);
+                    // If no account found show error
                     if(response.data === 'Account not found'){
                         this.setState({
                             errorMessageUsername: 'Incorrect friend username',
                             buttonMessageUsername: <i className="fas fa-user-plus"></i>
                         })
                     }
+                    // If account found refresh page
                     else if(response.data[0].id){
                         this.setState({
                             errorMessageUsername: '',
@@ -119,39 +136,48 @@ export default class Friend extends Component {
             })
         }
     }
+
+    // Runs inside removeFriend and deleteConversation functions
     idToUsernameConverter = id => {
+        // Shorten id taking off last characters
         return id.substring(0, id.length -7);
     }
+
     removeFriend = async e => {
         e.stopPropagation();
+        // Shorten username getting usable first part
         let usernameToRemove = this.idToUsernameConverter(e.target.id)
-        console.log(usernameToRemove)
         await this.setState({
             usernameToRemove: usernameToRemove
-        })
+        });
         let url = 'https://tera-text-api.herokuapp.com/friend/removefriend';
+        // Send request to API to remove friend and conversation
         await axios.post(url ,this.state)
         .then(response => {
+            // If successful refresh page
             if(response.status === 200){
-                console.log(response)
+                window.location.reload();
             }
         })
         .catch(error => {
             this.setState({
                 errorMessageCode: 'Trouble connecting to server',
-            })
+            });
         })
-        window.location.reload();
     }
+
     deleteConversation = async e => {
         e.stopPropagation();
+        // Shorten username getting usable first part
         let usernameToRemove = this.idToUsernameConverter(e.target.id)
         await this.setState({
             usernameToRemove: usernameToRemove
         })
         let url = 'https://tera-text-api.herokuapp.com/friend/deleteconversation';
+        // Send request to API to remove conversation
         await axios.post(url ,this.state)
         .then(response => {
+            // If successful refresh page
             if(response.status === 200){
                 window.location.reload();
             }
@@ -166,14 +192,16 @@ export default class Friend extends Component {
     async componentDidMount() {
         let loggedIn = window.localStorage.getItem('loggedIn');
         let userId = window.localStorage.getItem('userID');
+        // If not logged in redirect to home
         if (!loggedIn) {
             this.setState({
                 loggedIn: false
             });
         }
+        // Else get all friends from the API
         else {
             let username = window.localStorage.getItem('username');
-            //pause here till username is ready to send
+            // Pause here till username is ready to send
             await this.setState({
                 username: username,
                 userId: userId
@@ -181,15 +209,18 @@ export default class Friend extends Component {
             let url = 'https://tera-text-api.herokuapp.com/friend/all';
             axios.post(url ,this.state)
             .then(response => {
+                // If successful fill friendArr with the names and message links
                 if(response.status === 200){                   
                     let res = response.data;
                     for(let i=0; i<res.length; i++){
                         friendArr[i] = res[i];
                         friendArr[i].messageLink = '/user/message/'+ res[i].friendid +'/'+ res[i].friendusername;
                     }
+                    // Save finished array to state for rendering
                     this.setState({
                         friendArr: friendArr
                     });
+                    // If no friends show error
                     if(friendArr[0] === undefined) {
                         this.setState({
                             nofriends: "You don't have any friends yet"
@@ -204,35 +235,49 @@ export default class Friend extends Component {
             })
         }
     }
+
+    // Runs when click outer box of friend
     handleFriendClick = async e => {
+        // Save the clicked friend's message link
         await this.setState({
             messageLink: e.target.id,
         })
+        // Redirect to that message link
         this.setState({
             messageLinkClicked: true
         })
     }
+
+    // Runs when cursor enters button
     buttonHoverOn = e => {
+        // Add animation on class to button
         try {
             document.getElementById(e.target.id).className= 'buttonOn';            
         }
+        // If moving too quickly and error return doing nothing
         catch {
             return;
         }
     }
+
+    // Runs when cursor leaves button
     buttonHoverOff = e => {
+        // Add animation off class to button
         try {
             document.getElementById(e.target.id).className='buttonOff';  
         }
+        // If moving too quickly and error return doing nothing
         catch {
             return;
         }
     }
 
     render() {
+        // If not logged in redirect to home
         if(!this.state.loggedIn) {
             return <Redirect to='/'/>
         }
+        // If clicked on friend redirect to friend message page
         if(this.state.messageLinkClicked) {
             return <Redirect to={this.state.messageLink}/>
         }
@@ -260,8 +305,8 @@ export default class Friend extends Component {
                         <p id='friendCodeErr'>{ this.state.errorMessageCode }</p>
                     </div>
                 </div>
-                {this.state.friendArr.map((friend, index) => (
-                    
+                {/* map the friend array and list out each friend */}
+                {this.state.friendArr.map((friend, index) => (              
                     <div key={index} onClick={this.handleFriendClick} className='contactUserBox'>
                         <div className='friendUserBoxLeft'>
                             <img id={'/user/message/'+friend.friendid+'/'+friend.friendusername} src={friend.friendProfilePic} alt='friend profile'></img>
