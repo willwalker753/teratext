@@ -109,13 +109,15 @@ export default class Login extends Component {
             <div>
                 <h2 id='loginTeratext'><a href='/'>Teratext</a></h2>
                 <form id='loginForm' onSubmit={ this.submitHandler }>
+                    <label class='hidden' for='loginUsername'>username</label>
                     <input type='text' name='username' id='loginUsername' placeholder='Username' onChange={this.changeHandler}></input>
+                    <label class='hidden' for='loginPassword'>password</label>
                     <input type='password' name='password' id='loginPassword' placeholder='Password' onChange={this.changeHandler}></input>
                     <button type='submit' id='loginSubmit' onMouseEnter={this.buttonHoverOn} onMouseLeave={this.buttonHoverOff}>{this.state.buttonMessage}</button>
                 </form>
                 <div id='loginText'>
                     <p id='loginErrorMsg'>{ this.state.errorMessage }</p>
-                    <p>Need an account? Signup <a href='/signup'>here</a></p>
+                    <p>Need an account? Signup <a href='/signup'>here</a><br/><br/>The demo account credentials are<br/>username: <strong>dog</strong> and password: <strong>d</strong></p>
                 </div> 
                 {/* prep spinner in cache to get ready for use */}
                 <div id='hiddenStaging'><i className="fas fa-spinner"></i></div>

@@ -14,8 +14,8 @@ export default class Friend extends Component {
             friendArr: [],
             friendUsername: '',
             friendCode: '',
-            buttonMessageCode: <i className="fas fa-user-plus"></i>,
-            buttonMessageUsername: <i className="fas fa-user-plus"></i>,
+            buttonMessageCode: <i title='add' className="fas fa-user-plus"></i>,
+            buttonMessageUsername: <i title='add' className="fas fa-user-plus"></i>,
             errorMessageCode: '',
             nofriends: '',
             usernameToRemove: '',
@@ -43,14 +43,14 @@ export default class Friend extends Component {
         if(this.state.friendCode === '') {
             this.setState({
                 errorMessageCode: 'Please enter a code',
-                buttonMessageCode: <i className="fas fa-user-plus"></i>
+                buttonMessageCode: <i title='add' className="fas fa-user-plus"></i>
             })
         }
         // If friending yourself show error
         else if(this.state.friendCode === this.state.userId) {
             this.setState({
                 errorMessageCode: "Nope you can't friend yourself",
-                buttonMessageCode: <i className="fas fa-user-plus"></i>
+                buttonMessageCode: <i title='add' className="fas fa-user-plus"></i>
             })
         }
         // Else send request to API to add friend
@@ -63,14 +63,14 @@ export default class Friend extends Component {
                     if(response.data === 'Account not found'){
                         this.setState({
                             errorMessageCode: 'Incorrect code',
-                            buttonMessageCode: <i className="fas fa-user-plus"></i>
+                            buttonMessageCode: <i title='add' className="fas fa-user-plus"></i>
                         })
                     }
                     // If account found refresh
                     else if(response.data[0].id){
                         this.setState({
                             errorMessageCode: '',
-                            buttonMessageCode: <i className="fas fa-user-plus"></i>
+                            buttonMessageCode: <i title='add' className="fas fa-user-plus"></i>
                         })
                         window.location.reload();
                     }
@@ -96,14 +96,14 @@ export default class Friend extends Component {
         if((this.state.friendUsername === '')) {
             this.setState({
                 errorMessageUsername: 'Please enter a username',
-                buttonMessageUsername: <i className="fas fa-user-plus"></i>
+                buttonMessageUsername: <i title='add' className="fas fa-user-plus"></i>
             })
         }
         // If trying to friend self show error
         else if(this.state.friendUsername === this.state.username) {
             this.setState({
                 errorMessageUsername: "Nope you can't friend yourself",
-                buttonMessageUsername: <i className="fas fa-user-plus"></i>
+                buttonMessageUsername: <i title='add' className="fas fa-user-plus"></i>
             })
         }
         // Else send request to API to add friend
@@ -116,14 +116,14 @@ export default class Friend extends Component {
                     if(response.data === 'Account not found'){
                         this.setState({
                             errorMessageUsername: 'Incorrect friend username',
-                            buttonMessageUsername: <i className="fas fa-user-plus"></i>
+                            buttonMessageUsername: <i title='add' className="fas fa-user-plus"></i>
                         })
                     }
                     // If account found refresh page
                     else if(response.data[0].id){
                         this.setState({
                             errorMessageUsername: '',
-                            buttonMessageUsername: <i className="fas fa-user-plus"></i>
+                            buttonMessageUsername: <i title='add' className="fas fa-user-plus"></i>
                         })
                         window.location.reload();
                     }
@@ -293,13 +293,15 @@ export default class Friend extends Component {
                     
                     <div>
                         <form id='friendUsernameForm' onSubmit={ this.submitUsernameHandler }>
-                            <input name='friendUsername' placeholder='username' onChange={ this.changeHandler }/>
+                            <label class='hidden' for='friendUsername'>username</label>
+                            <input name='friendUsername' id='friendUsername' placeholder='username' onChange={ this.changeHandler }/>
                             <button type='submit'>{this.state.buttonMessageUsername}</button>
                         </form>
                         <p id='friendUsernameErr'>{ this.state.errorMessageUsername }</p>
 
                         <form id='friendIdForm' onSubmit={ this.submitCodeHandler }>
-                            <input type='number' name='friendCode' placeholder='code' onChange={ this.changeHandler }/>
+                            <label class='hidden' for='friendCodeForm'>code</label>
+                            <input type='number' name='friendCode' id='friendCodeForm' placeholder='code' onChange={ this.changeHandler }/>
                             <button type='submit'>{this.state.buttonMessageCode}</button>
                         </form>
                         <p id='friendCodeErr'>{ this.state.errorMessageCode }</p>

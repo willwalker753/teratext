@@ -167,7 +167,7 @@ export default class Account extends Component {
                     <img id='accountProfilePic' src={this.state.profilePic} alt='my profile'></img>
                     <form id='pictureMessageForm'>  
                         <button id='pictureMessageInput' onMouseEnter={this.buttonHoverOn} onMouseLeave={this.buttonHoverOff}>
-                        <i className="fas fa-images"></i>
+                        <i title='image input' className="fas fa-images"></i>
                             <FileBase64
                             multiple={ false }
                             onDone={ this.profilePic.bind(this) }   

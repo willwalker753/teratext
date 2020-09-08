@@ -15,8 +15,8 @@ class Message extends Component {
             userId: '',
             friendId: null,
             friendUsername: '',
-            sendButton: <i className="fas fa-paper-plane"></i>,
-            sendPicButton: <i className="fas fa-camera"></i>,
+            sendButton: <i title='send text' className="fas fa-paper-plane"></i>,
+            sendPicButton: <i title='send picture' className="fas fa-camera"></i>,
             messageArr: [],
             text: '',
             picture: [],
@@ -238,7 +238,7 @@ class Message extends Component {
                 errorMessage: 'Unable to find your messages',
             })
         })
-        this.setState({ sendButton: <i className="fas fa-paper-plane"></i> })
+        this.setState({ sendButton: <i title='send text' className="fas fa-paper-plane"></i> })
     }
 
     async sendPicture(picture){
@@ -272,7 +272,7 @@ class Message extends Component {
                 errorMessage: 'Unable to send your message',
             })
         })
-        this.setState({ sendPicButton: <i className="fas fa-camera"></i> })
+        this.setState({ sendPicButton: <i title='send picture' className="fas fa-camera"></i> })
     }
 
     render() {
@@ -298,13 +298,16 @@ class Message extends Component {
                 </div>
                 <div id='messageForm'>
                     <form id='textForm' onSubmit={ this.submitHandler }>
+                        <label class='hidden' for='textFormText'>Send a text</label>
                         <input type="text" id='textFormText' name='text' value={this.state.text} onChange={this.changeHandler}></input>
                         <button type="submit">{this.state.sendButton}</button>
                     </form>
                     <form id='pictureSendForm'>  
                         <button id='pictureSendInput'>
                         {this.state.sendPicButton}
+                        <label class='hidden' for='pictureSendInputFile'>Send a picture</label>
                             <FileBase64
+                            id='pictureSendInputFile'
                             multiple={ false }
                             onDone={ this.sendPicture.bind(this) }   
                         />

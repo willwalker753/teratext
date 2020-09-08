@@ -109,14 +109,17 @@ export default class Signup extends Component {
             <div>
                 <h2 id='signupTeratext'><a href='/'>Teratext</a></h2>
                 <form id='signupForm' onSubmit={ this.submitHandler }>
+                    <label class='hidden' for='signupUsername'>username</label>
                     <input type='text' name='username' id='signupUsername' placeholder='Username' onChange={this.changeHandler}></input>
+                    <label class='hidden' for='signupPassword'>password</label>
                     <input type='password' name='password' id='signupPassword' placeholder='Password' onChange={this.changeHandler}></input>
+                    <label class='hidden' for='signupRepPassword'>repeat password</label>
                     <input type='password' name='repeatPassword' id='signupRepPassword' placeholder='Repeat Password' onChange={this.changeHandler}></input>
                     <button type='submit' id='signupSubmit' onMouseEnter={this.buttonHoverOn} onMouseLeave={this.buttonHoverOff}>{ this.state.buttonMessage }</button>
                 </form>
                 <div id='signupText'>
                     <p id='signupErrorMsg'>{ this.state.errorMessage }</p>
-                    <p>Already have an account? Login <a href='/login'>here</a></p>
+                    <p>Already have an account? Login <a href='/login'>here</a><br/><br/>Demo account credentials can be<br/>found on the login page</p>
                 </div>
                 <div id='hiddenStaging'><i className="fas fa-spinner"></i></div>
             </div>

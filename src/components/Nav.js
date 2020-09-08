@@ -27,7 +27,7 @@ export default function Nav(props) {
                 <ul className='navList'>
                     <div id='navButtonAndHeader'>
                         <p id='navTeratext'><a href='/'>Teratext</a></p>
-                        <button id='hamburgerButtonOnMenu' onClick={hamburgerMenuIn}><i className="fas fa-times"></i></button>
+                        <button id='hamburgerButtonOnMenu' onClick={hamburgerMenuIn}><i title='close menu' className="fas fa-times"></i></button>
                     </div>
                     <p className='welcomeText'>Welcome {props.username}</p>
                     <li><a href='/user'>Messages</a></li>
@@ -37,7 +37,7 @@ export default function Nav(props) {
                 </ul>
             </div>
             <nav id='navBox'>
-                <button id='hamburgerButton' onClick={hamburgerMenuOut}><i className="fas fa-bars"></i></button>
+                <button id='hamburgerButton'  onClick={hamburgerMenuOut}><i title='open menu' className="fas fa-bars"></i></button>
                 <p className='friendNavText'>{props.username}'s Messages</p>
                 <div id='spacerNav'></div>
             </nav>
@@ -52,7 +52,7 @@ export default function Nav(props) {
                 <ul className='navList'>
                     <div id='navButtonAndHeader'>
                         <p id='navTeratext'><a href='/'>Teratext</a></p>
-                        <button id='hamburgerButtonOnMenu' onClick={hamburgerMenuIn}><i className="fas fa-times"></i></button>
+                        <button id='hamburgerButtonOnMenu' onClick={hamburgerMenuIn}><i title='close menu' className="fas fa-times"></i></button>
                     </div>
                     <li><a href='/user'>Messages</a></li>
                     <li><a href='/user/friend'>Contacts</a></li>              
@@ -61,7 +61,7 @@ export default function Nav(props) {
                 </ul>
             </div>
             <nav id='navBox'>
-                <button id='hamburgerButton' onClick={hamburgerMenuOut}><i className="fas fa-bars"></i></button>
+                <button id='hamburgerButton' onClick={hamburgerMenuOut}><i title='open menu' className="fas fa-bars"></i></button>
                 <div id='navFriendPicName'>
                     <p className='welcomeText'>{props.friendUsername}</p>
                     <img src={props.friendProfilePic} id='navFriendProfilePic' alt='friend profile'></img>  
@@ -79,7 +79,7 @@ export default function Nav(props) {
                     <ul className='navList'>
                         <div id='navButtonAndHeader'>
                             <p id='navTeratext'><a href='/'>Teratext</a></p>
-                            <button id='hamburgerButtonOnMenu' onClick={hamburgerMenuIn}><i className="fas fa-times"></i></button>
+                            <button id='hamburgerButtonOnMenu' onClick={hamburgerMenuIn}><i title='close menu' className="fas fa-times"></i></button>
                         </div>
                         <li><a href='/user'>Messages</a></li>
                         <li><a href='/user/friend'>Contacts</a></li>              
@@ -88,7 +88,7 @@ export default function Nav(props) {
                     </ul>
                 </div>
                 <nav id='navBox'>
-                    <button id='hamburgerButton' onClick={hamburgerMenuOut}><i className="fas fa-bars"></i></button>
+                    <button id='hamburgerButton' onClick={hamburgerMenuOut}><i title='open menu' className="fas fa-bars"></i></button>
                     <p className='friendNavText'>{props.username}'s Friends</p>
                     <div id='spacerNav'></div>
                 </nav>
@@ -103,7 +103,7 @@ export default function Nav(props) {
                     <ul className='navList'>
                         <div id='navButtonAndHeader'>
                             <p id='navTeratext'><a href='/'>Teratext</a></p>
-                            <button id='hamburgerButtonOnMenu' onClick={hamburgerMenuIn}><i className="fas fa-times"></i></button>
+                            <button id='hamburgerButtonOnMenu' onClick={hamburgerMenuIn}><i title='close menu' className="fas fa-times"></i></button>
                         </div>
                         <li><a href='/user'>Messages</a></li>
                         <li><a href='/user/friend'>Contacts</a></li>              
@@ -112,7 +112,7 @@ export default function Nav(props) {
                     </ul>
                 </div>
                 <nav id='navBox'>
-                    <button id='hamburgerButton' onClick={hamburgerMenuOut}><i className="fas fa-bars"></i></button>
+                    <button id='hamburgerButton' onClick={hamburgerMenuOut}><i title='open menu' className="fas fa-bars"></i></button>
                     <p className='friendNavText'>{props.username}'s Account</p>
                     <div id='spacerNav'></div>
                 </nav>
