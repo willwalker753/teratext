@@ -10,7 +10,7 @@ export default class Home extends Component {
             demoLogin: false,
             quickDemoText: 'Quick demo'
         };
-        this.demoLogin = this.demoLogin.bind(this)
+        this.demoLogin = this.demoLogin.bind(this);
     }
 
     // Runs when click demo login button

@@ -4,10 +4,10 @@ import Nav from './Nav';
 import FileBase64 from 'react-file-base64';
 import resizebase64 from 'resize-base64';
 import axios from 'axios';
-import './Account.css'
+import './Account.css';
 export default class Account extends Component {
     constructor(props) {
-        super(props)  
+        super(props);
         this.state = {
             username: '',
             userId: '',
@@ -17,7 +17,7 @@ export default class Account extends Component {
             loggedIn: true,
             deleteAccountMessage: 'Delete Account'
         }
-        this.deleteAccount = this.deleteAccount.bind(this)
+        this.deleteAccount = this.deleteAccount.bind(this);
     }  
     // Runs when logout button clicked
     logoutHandler = e => {
@@ -49,34 +49,34 @@ export default class Account extends Component {
                     // If successful save response picture to state
                     this.setState({
                         profilePic: response.data.rows[0].profilepic
-                    })
+                    });
                 }
             })
             .catch(error => {
                 this.setState({
                     errorMessage: 'Incorrect username or password',
-                })
-            })
+                });
+            });
         }
     }
         
     // Runs when button clicked to change profile pic
-    async profilePic(picture){
+    async profilePic(picture) {
         // Temporarily renders the chosen picture
         await this.setState({
             testRender: true,
             testUri: picture.base64
-        })
+        });
         // Get the chosen pictures dimensions
         let testImageW = Math.floor((document.getElementById('testImage').width) / 4);
         let testImageH = Math.floor((document.getElementById('testImage').height) / 4);
         // Resize the profile pic to save space and convert to base64
-        picture.base64 = resizebase64(picture.base64, testImageW, testImageH)
+        picture.base64 = resizebase64(picture.base64, testImageW, testImageH);
         this.setState({ 
             picture: picture,
             testRender: false,
             testUri: ''
-        })
+        });
         let url = 'https://tera-text-api.herokuapp.com/account/profilepic/update';
         // Send the picture to the API to save to account
         await axios.post(url ,this.state)
@@ -89,8 +89,8 @@ export default class Account extends Component {
         .catch(error => {
             this.setState({
                 errorMessage: 'Unable to update your image',
-            })
-        })
+            });
+        });
     }
 
     // Runs when button clicked to delete account
@@ -102,7 +102,7 @@ export default class Account extends Component {
             });
         }
         // If first time clicking ask to confirm
-        else if(this.state.deleteAccountMessage === 'Delete Account'){
+        else if(this.state.deleteAccountMessage === 'Delete Account') {
             this.setState({
                 deleteAccountMessage: 'Are you sure you want to delete everything?'
             });
@@ -112,7 +112,7 @@ export default class Account extends Component {
             let url = 'https://tera-text-api.herokuapp.com/account/delete';
             await axios.post(url ,this.state)
             .then(response => {
-                if(response.status === 200){
+                if(response.status === 200) {
                     // If successful then go to home screen
                     this.setState({
                         loggedIn: false
@@ -122,8 +122,8 @@ export default class Account extends Component {
             .catch(error => {
                 this.setState({
                     errorMessage: 'Unable to delete your account',
-                })
-            })
+                });
+            });
         }
     }
 

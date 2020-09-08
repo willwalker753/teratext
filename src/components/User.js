@@ -6,7 +6,7 @@ import './User.css';
 
 export default class User extends Component {
     constructor(props) {
-        super(props)  
+        super(props);  
         this.state = {
             username: '',
             userId: '',
@@ -82,10 +82,10 @@ export default class User extends Component {
                                 }
                             }
                             else if(tsCharArr[i] === 'P'){
-                                meridiem = 'PM'
+                                meridiem = 'PM';
                             }
                             else if(tsCharArr[i] === 'A'){
-                                meridiem = 'AM'
+                                meridiem = 'AM';
                             }
                             else {
                                 temp = temp + tsCharArr[i];
@@ -163,14 +163,14 @@ export default class User extends Component {
                     this.setState({
                         friendArr: response,
                         addFriendText: 'Add a new friend here'
-                    })
+                    });
                 }
             })
             .catch(error => {
                 this.setState({
                     addFriendText: 'Add a new friend here',
-                })
-            })
+                });
+            });
         }
     }
 

@@ -9,7 +9,7 @@ import './Message.css';
 let username = window.localStorage.getItem('username');
 class Message extends Component {
     constructor(props) {
-        super(props)  
+        super(props);  
         this.state = {
             username: '',
             userId: '',

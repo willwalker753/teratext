@@ -4,7 +4,7 @@ import './Login.css';
 import axios from 'axios';
 export default class Login extends Component {
     constructor(props) {
-        super(props)  
+        super(props); 
         this.state = {
              username: '',
              password: '',

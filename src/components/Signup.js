@@ -4,7 +4,7 @@ import './Signup.css';
 import axios from 'axios';
 export default class Signup extends Component {
     constructor(props) {
-        super(props)  
+        super(props);
         this.state = {
              username: '',
              password: '',

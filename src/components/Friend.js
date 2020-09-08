@@ -7,7 +7,7 @@ import './Friend.css';
 let friendArr = [];
 export default class Friend extends Component {
     constructor(props) {
-        super(props)  
+        super(props);
         this.state = {
             username: '',
             userId: '',
